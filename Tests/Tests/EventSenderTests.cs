@@ -3,74 +3,66 @@ using DudCo.Events;
 
 namespace Tests
 {
-    interface ISomeSubscriber { void OnTrigger(); }
-    class SomeSubscriber : ISomeSubscriber
-    {
-        public bool triggered = false;
-        public void OnTrigger() => triggered = true;
-    }
-
-    class UnSubscribeDuringEvent : ISomeSubscriber
-    {
-        EventSender<ISomeSubscriber> sender;
-
-        public UnSubscribeDuringEvent(EventSender<ISomeSubscriber> sender)
-        {
-            this.sender = sender;
-        }
-
-        public bool triggered = false;
-
-        public void OnTrigger()
-        {
-            triggered = true;
-            sender.Unsubscribe(this);
-        }
-    }
-
-    class SubscribeDuringEvent : ISomeSubscriber
-    {
-        EventSender<ISomeSubscriber> sender;
-        ISomeSubscriber newSub;
-        public bool hasSubbed = false;
-
-        public SubscribeDuringEvent(EventSender<ISomeSubscriber> sender, ISomeSubscriber newSub)
-        {
-            this.sender = sender;
-            this.newSub = newSub;
-        }
-
-        public bool triggered = false;
-
-        public void OnTrigger()
-        {
-            triggered = true;
-            if (hasSubbed == false)
-            {
-                sender.Subscribe(newSub);
-                hasSubbed = true;
-            }
-        }
-    }
-
     public class EventSenderTests
     {
         EventSender<ISomeSubscriber> sender;
         SomeSubscriber receiver;
+        TestHelper helper;
+
+        class UnSubscribeDuringEvent : ISomeSubscriber
+        {
+            EventSender<ISomeSubscriber> sender;
+
+            public UnSubscribeDuringEvent(EventSender<ISomeSubscriber> sender)
+            {
+                this.sender = sender;
+            }
+
+            public bool triggered = false;
+
+            public void OnTrigger()
+            {
+                triggered = true;
+                sender.Unsubscribe(this);
+            }
+        }
+
+        class SubscribeDuringEvent : ISomeSubscriber
+        {
+            EventSender<ISomeSubscriber> sender;
+            ISomeSubscriber newSub;
+            public bool hasSubbed = false;
+
+            public SubscribeDuringEvent(EventSender<ISomeSubscriber> sender, ISomeSubscriber newSub)
+            {
+                this.sender = sender;
+                this.newSub = newSub;
+            }
+
+            public bool triggered = false;
+
+            public void OnTrigger()
+            {
+                triggered = true;
+                if (hasSubbed == false)
+                {
+                    sender.Subscribe(newSub);
+                    hasSubbed = true;
+                }
+            }
+        }
 
         [SetUp]
         public void Setup()
         {
             sender = new EventSender<ISomeSubscriber>();
             receiver = new SomeSubscriber();
+            helper = new TestHelper(sender);
 
             sender.Subscribe(receiver);
         }
 
-        void SendEvent()
-        {
-            sender.SendEvent((ISomeSubscriber sub) => sub.OnTrigger());
-        }
+        void SendEvent() => helper.SendEvent();
 
         [Test]
         public void SubscriberGetsNotified()
