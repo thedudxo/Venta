@@ -1,14 +1,14 @@
 ﻿using System.Collections.Generic;
 using System;
 
-namespace Game.Events
+namespace DudCo.Events
 {
     /// <summary>
     /// Interface events
     /// uses subscribe and unsubscribe queues to avoid collection modified errors while enumerating
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    class EventSender<T>
+    public class EventSender<T>
     {
         List<T> subscribers = new List<T>();
         Queue<T> toSubscribe = new Queue<T>();
