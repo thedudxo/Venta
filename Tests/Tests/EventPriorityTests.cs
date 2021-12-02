@@ -5,8 +5,23 @@ namespace Tests
 {
     public class EventPriorityTests
     {
+        class OrderedSubscriber : ISomeSubscriber
+        {
+            static int triggerCount = 0;
+            public int triggeredAt = 0;
+            public bool triggered = false;
+
+            public void OnTrigger()
+            {
+                triggered = true;
+                triggeredAt = triggerCount;
+                triggerCount++;
+            }
+        }
+        
+
         EventSender<ISomeSubscriber> sender;
-        SomeSubscriber receiver;
+        
         TestHelper helper;
 
         void SendEvent() => helper.SendEvent();
@@ -15,18 +30,35 @@ namespace Tests
         public void SetUp()
         {
             sender = new EventSender<ISomeSubscriber>();
-            receiver = new SomeSubscriber();
+            
             helper = new TestHelper(sender);
         }
 
         [Test] 
         public void Subscribe_WithPriority()
         {
-            sender.Subscribe(receiver, 0);
+            SomeSubscriber subscriber = new SomeSubscriber();
+            sender.Subscribe(subscriber, 0);
 
             SendEvent();
 
-            Assert.True(receiver.triggered);
+            Assert.True(subscriber.triggered);
+        }
+
+        [Test]
+        public void HigherPriority_CalledFirst()
+        {
+            OrderedSubscriber
+                sub = new OrderedSubscriber(),
+                prioritySub = new OrderedSubscriber();
+
+            sender.Subscribe(sub, 0);
+            sender.Subscribe(prioritySub, 1);
+
+            SendEvent();
+
+            Assert.AreEqual(1, sub.triggeredAt);
+            Assert.AreEqual(0, prioritySub.triggeredAt);
         }
     }
 }
