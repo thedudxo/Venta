@@ -42,7 +42,7 @@ namespace DudCo.Events
                 RemoveNow(sub);
         }
 
-        public void Subscribe(T subscriber)
+        public void Subscribe(T subscriber, int priority = 0)
         {
             if (subscribers.Contains(subscriber))
                 throw new InvalidOperationException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
