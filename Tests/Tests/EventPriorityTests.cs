@@ -7,6 +7,13 @@ namespace Tests
     {
         class OrderedSubscriber : ISomeSubscriber
         {
+            string _name;
+
+            public OrderedSubscriber(string name ="")
+            {
+                _name = name;
+            }
+
             static int triggerCount = 0;
             public int triggeredAt = 0;
             public bool triggered = false;
@@ -49,8 +56,8 @@ namespace Tests
         public void HigherPriority_CalledFirst()
         {
             OrderedSubscriber
-                sub = new OrderedSubscriber(),
-                prioritySub = new OrderedSubscriber();
+                sub = new OrderedSubscriber("low Prio"),
+                prioritySub = new OrderedSubscriber("high Prio");
 
             sender.Subscribe(sub, 0);
             sender.Subscribe(prioritySub, 1);
