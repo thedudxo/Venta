@@ -24,6 +24,8 @@ namespace Tests
                 triggeredAt = triggerCount;
                 triggerCount++;
             }
+
+            public static void Clear() => triggerCount = 0;
         }
         
 
@@ -39,6 +41,8 @@ namespace Tests
             sender = new EventSender<ISomeSubscriber>();
             
             helper = new TestHelper(sender);
+
+            OrderedSubscriber.Clear();
         }
 
         [Test] 
@@ -56,8 +60,8 @@ namespace Tests
         public void HigherPriority_CalledFirst()
         {
             OrderedSubscriber
-                sub = new OrderedSubscriber("low Prio"),
-                prioritySub = new OrderedSubscriber("high Prio");
+                sub = new OrderedSubscriber(),
+                prioritySub = new OrderedSubscriber();
 
             sender.Subscribe(sub, 0);
             sender.Subscribe(prioritySub, 1);
@@ -66,6 +70,38 @@ namespace Tests
 
             Assert.AreEqual(1, sub.triggeredAt);
             Assert.AreEqual(0, prioritySub.triggeredAt);
+        }
+
+        [Test]
+        public void AllItemsInOnePriorty_CalledBeforeNextPrioritiy()
+        {
+            OrderedSubscriber
+                highSub1 = new OrderedSubscriber(),
+                highSub2 = new OrderedSubscriber(),
+                lowSub = new OrderedSubscriber();
+
+            sender.Subscribe(highSub1, 1);
+            sender.Subscribe(highSub2, 1);
+            sender.Subscribe(lowSub, 0);
+
+            SendEvent();
+
+            Assert.AreEqual(2, lowSub.triggeredAt);
+        }
+
+        [Test]
+        public void NegativePriority_IsLowerThan_PositivePriority()
+        {
+            OrderedSubscriber
+                highSub = new OrderedSubscriber(),
+                lowSub = new OrderedSubscriber();
+
+            sender.Subscribe(lowSub, -1);
+            sender.Subscribe(highSub, 1);
+
+            SendEvent();
+
+            Assert.AreEqual(1, lowSub.triggeredAt);
         }
     }
 }
