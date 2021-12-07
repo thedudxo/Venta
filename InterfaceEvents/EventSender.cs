@@ -25,7 +25,7 @@ namespace DudCo.Events
             unsubscribe = RemoveNow;
         }
 
-        public void SendEvent(Action<T> notify)
+        public void Send(Action<T> notify)
         {
             subscribe = AddAfter;
             unsubscribe = RemoveAfter;

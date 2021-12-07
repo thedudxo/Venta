@@ -13,7 +13,7 @@ namespace Tests
 
         public void SendEvent()
         {
-            sender.SendEvent((ISomeSubscriber sub) => sub.OnTrigger());
+            sender.Send((ISomeSubscriber sub) => sub.OnTrigger());
         }
     }
 }
