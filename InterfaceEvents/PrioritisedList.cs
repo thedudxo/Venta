@@ -9,45 +9,48 @@ namespace DudCo.Events
         SortedDictionary<int, List<T>> contents = new SortedDictionary<int, List<T>>();
         Dictionary<T, (List<T>list, int priority)> indexes = new Dictionary<T, (List<T>,int)>();
 
-        public void Add(T item, int priority)
+        public void Add(T item, int priority) //O(n) when resizing
         { 
             //invert so the dictionary is sorted the right way around
             priority *= -1;
 
-            bool priorityAllreadyExists = contents.ContainsKey(priority);
+            bool priorityAllreadyExists = contents.ContainsKey(priority); //O(log n)
 
             if (priorityAllreadyExists)
-                contents[priority].Add(item);
+                contents[priority].Add(item); //O(n) when resizing
             else
                 CreateAndAddToNewItemsList(item, priority);
 
-            var itemList = contents[priority];
+            var itemList = contents[priority]; //O(log n)
             var index = (itemList, priority);
-            indexes[item] = index;
+            indexes[item] = index; //O(1)
         }
 
-        private void CreateAndAddToNewItemsList(T item, int prio)
+        private void CreateAndAddToNewItemsList(T item, int prio) //O(log n)
         {
-            List<T> items = new List<T>();
-            items.Add(item);
-            contents.Add(prio, items);
+            List<T> items = new List<T>(1);
+            items.Add(item); //O(1)
+            contents.Add(prio, items); //O(log n)
         }
 
-        public void Remove(T item)
+        public void Remove(T item) //O(n)
         {
-            List<T> items = indexes[item].list;
+            List<T> items = indexes[item].list; //O(1)
 
-            items.Remove(item);
+            items.Remove(item); //O(n)
 
-            if(items.Count == 0)
-                contents.Remove(indexes[item].priority);
+            if (items.Count == 0)
+            {
+                int priority = indexes[item].priority; //O(1)
+                contents.Remove(priority); //O(log n)
+            }
             
-            indexes.Remove(item);
+            indexes.Remove(item); //O(1)
         }
 
         public bool Contains(T item)
         {
-            return indexes.ContainsKey(item);
+            return indexes.ContainsKey(item); //O(1)
         }
 
         public IEnumerator<KeyValuePair<int, List<T>>> GetEnumerator()
