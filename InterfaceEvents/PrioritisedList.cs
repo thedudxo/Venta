@@ -13,24 +13,27 @@ namespace DudCo.Events
         { 
             //invert so the dictionary is sorted the right way around
             priority *= -1;
+            LinkedList<T> items = null;
 
             bool priorityAllreadyExists = contents.ContainsKey(priority); //O(log n)
-
             if (priorityAllreadyExists)
-                contents[priority].AddLast(item); //O(1)
+            {
+                items = contents[priority]; //O(log n)
+                items.AddLast(item); //O(1)
+            }
             else
-                CreateAndAddToNewItemsList(item, priority);
+                items = CreateAndAddToNewItemsList(item, priority); //O(log n)
 
-            var itemList = contents[priority]; //O(log n)
-            var index = (itemList, priority);
+            var index = (items, priority);
             indexes[item] = index; //O(1)
         }
 
-        private void CreateAndAddToNewItemsList(T item, int prio) //O(log n)
+        private LinkedList<T> CreateAndAddToNewItemsList(T item, int prio) //O(log n)
         {
             LinkedList<T> items = new LinkedList<T>();
             items.AddLast(item); //O(1)
             contents.Add(prio, items); //O(log n)
+            return items;
         }
 
         public void Remove(T item) //O(n)
