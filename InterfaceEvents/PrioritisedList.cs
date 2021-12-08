@@ -20,12 +20,12 @@ namespace DudCo.Events
         { 
             //invert so the dictionary is sorted the right way around
             priority *= -1;
-            LinkedListNode<T> node = null;
+            LinkedListNode<T> node;
 
             bool priorityAllreadyExists = contents.ContainsKey(priority);
             if (priorityAllreadyExists)
             {
-                var items = contents[priority];
+                LinkedList<T> items = contents[priority];
                 node = items.AddLast(item);
             }
             else
