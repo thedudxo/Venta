@@ -30,7 +30,7 @@ namespace DudCo.Events
             subscribe = AddAfter;
             unsubscribe = RemoveAfter;
 
-            foreach (KeyValuePair<int,List<T>> pair in subscribers)
+            foreach (KeyValuePair<int,LinkedList<T>> pair in subscribers)
                 foreach (T subscriber in pair.Value)
                     notify(subscriber);
 

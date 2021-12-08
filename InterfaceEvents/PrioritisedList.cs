@@ -3,13 +3,13 @@ using System.Collections.Generic;
 
 namespace DudCo.Events
 {
-    internal class PrioritisedList<T> : IEnumerable<KeyValuePair<int,List<T>>>
+    internal class PrioritisedList<T> : IEnumerable<KeyValuePair<int, LinkedList<T>>>
     {
         //similar concept to the contents and index sections of a book
-        SortedDictionary<int, List<T>> contents = new SortedDictionary<int, List<T>>();
-        Dictionary<T, (List<T>list, int priority)> indexes = new Dictionary<T, (List<T>,int)>();
+        SortedDictionary<int, LinkedList<T>> contents = new SortedDictionary<int, LinkedList<T>>();
+        Dictionary<T, (LinkedList<T>list, int priority)> indexes = new Dictionary<T, (LinkedList<T>,int)>();
 
-        public void Add(T item, int priority) //O(n) when resizing
+        public void Add(T item, int priority) //O(log n)
         { 
             //invert so the dictionary is sorted the right way around
             priority *= -1;
@@ -17,7 +17,7 @@ namespace DudCo.Events
             bool priorityAllreadyExists = contents.ContainsKey(priority); //O(log n)
 
             if (priorityAllreadyExists)
-                contents[priority].Add(item); //O(n) when resizing
+                contents[priority].AddLast(item); //O(1)
             else
                 CreateAndAddToNewItemsList(item, priority);
 
@@ -28,14 +28,14 @@ namespace DudCo.Events
 
         private void CreateAndAddToNewItemsList(T item, int prio) //O(log n)
         {
-            List<T> items = new List<T>(1);
-            items.Add(item); //O(1)
+            LinkedList<T> items = new LinkedList<T>();
+            items.AddLast(item); //O(1)
             contents.Add(prio, items); //O(log n)
         }
 
         public void Remove(T item) //O(n)
         {
-            List<T> items = indexes[item].list; //O(1)
+            LinkedList<T> items = indexes[item].list; //O(1)
 
             items.Remove(item); //O(n)
 
@@ -53,7 +53,7 @@ namespace DudCo.Events
             return indexes.ContainsKey(item); //O(1)
         }
 
-        public IEnumerator<KeyValuePair<int, List<T>>> GetEnumerator()
+        public IEnumerator<KeyValuePair<int, LinkedList<T>>> GetEnumerator()
         {
             return contents.GetEnumerator();
         }
