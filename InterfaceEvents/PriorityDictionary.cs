@@ -3,7 +3,7 @@ using System;
 
 namespace DudCo.Events
 {
-    public class PriorityDictionary
+    public abstract class PriorityDictionary
     {
         readonly Dictionary<Type, int> priorities = new Dictionary<Type, int>();
 
