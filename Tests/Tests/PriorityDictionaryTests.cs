@@ -5,12 +5,14 @@ namespace Tests.PriorityDictionaries
 {
     public class PriorityDictionaryTests
     {
-        PriorityDictionary priorites = new PriorityDictionary();
+        class TestPriorityDictionary : PriorityDictionary { }
+
+        PriorityDictionary priorites = new TestPriorityDictionary();
 
         [SetUp]
         public void Setup()
         {
-            priorites = new PriorityDictionary();
+            priorites = new TestPriorityDictionary();
         }
 
         class itemA { }
