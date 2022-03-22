@@ -3,6 +3,7 @@ using DudCo.Events;
 
 namespace Tests
 {
+    [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     public class EventPriorityTests
     {
         class OrderedSubscriber : ISomeSubscriber
@@ -31,16 +32,12 @@ namespace Tests
 
         EventSender<ISomeSubscriber> sender;
         
-        TestHelper helper;
 
-        void SendEvent() => helper.SendEvent();
+        void SendEvent() => sender.Send((ISomeSubscriber sub) => sub.OnTrigger());
 
-        [SetUp]
-        public void SetUp()
+        public EventPriorityTests()
         {
             sender = new EventSender<ISomeSubscriber>();
-            
-            helper = new TestHelper(sender);
 
             OrderedSubscriber.Clear();
         }

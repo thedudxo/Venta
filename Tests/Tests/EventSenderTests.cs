@@ -3,11 +3,11 @@ using DudCo.Events;
 
 namespace Tests
 {
+    [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     public partial class EventSenderTests
     {
-        EventSender<ISomeSubscriber> sender;
-        SomeSubscriber receiver;
-        TestHelper helper;
+        EventSender<ISomeSubscriber> _event;
+        SomeSubscriber subscriber;
 
         class UnSubscribeDuringEvent : ISomeSubscriber
         {
@@ -52,57 +52,55 @@ namespace Tests
             }
         }
 
-        [SetUp]
-        public void Setup()
+        public EventSenderTests()
         {
-            sender = new EventSender<ISomeSubscriber>();
-            receiver = new SomeSubscriber();
-            helper = new TestHelper(sender);
+            _event = new EventSender<ISomeSubscriber>();
+            subscriber = new SomeSubscriber();
 
-            sender.Subscribe(receiver);
+            _event.Subscribe(subscriber);
         }
 
-        void SendEvent() => helper.SendEvent();
+        void SendEvent() => _event.Send((ISomeSubscriber sub) => sub.OnTrigger());
 
         [Test]
         public void SubscriberGetsNotified()
         {
             SendEvent();
 
-            Assert.True(receiver.triggered);
+            Assert.True(subscriber.triggered);
         }
 
         [Test]
         public void Unsubscribe_Doesnt_GetNotified()
         {
-            sender.Unsubscribe(receiver);
+            _event.Unsubscribe(subscriber);
 
             SendEvent();
 
-            Assert.False(receiver.triggered);
+            Assert.False(subscriber.triggered);
         }
 
         [Test]
         public void AllreadySubscribed_Throws_InvaildOpException() 
         {
             Assert.Throws<System.InvalidOperationException>(
-                () => sender.Subscribe(receiver));
+                () => _event.Subscribe(subscriber));
         }
 
         [Test]
         public void UnsubscribingNotSubscribed_Throws_InvaildOpException() 
         {
-            sender.Unsubscribe(receiver);
+            _event.Unsubscribe(subscriber);
 
             Assert.Throws<System.InvalidOperationException>(
-                () => sender.Unsubscribe(receiver));
+                () => _event.Unsubscribe(subscriber));
         }
 
         [Test]
         public void Unsubscribe_DuringEvent()
         {
-            UnSubscribeDuringEvent sub = new UnSubscribeDuringEvent(sender);
-            sender.Subscribe(sub);
+            UnSubscribeDuringEvent sub = new UnSubscribeDuringEvent(_event);
+            _event.Subscribe(sub);
 
             SendEvent();
             sub.triggered = false;
@@ -115,8 +113,8 @@ namespace Tests
         public void SubscribeDuringEvent_TriggersNewSub()
         {
             SomeSubscriber createdSub = new SomeSubscriber();
-            SubscribeDuringEvent subCreator = new SubscribeDuringEvent(sender, createdSub);
-            sender.Subscribe(subCreator);
+            SubscribeDuringEvent subCreator = new SubscribeDuringEvent(_event, createdSub);
+            _event.Subscribe(subCreator);
 
             SendEvent();
             SendEvent();
@@ -128,8 +126,8 @@ namespace Tests
         public void SubscribeDuringEvent_DoesntTriggerEarly()
         {
             SomeSubscriber createdSub = new SomeSubscriber();
-            SubscribeDuringEvent subCreator = new SubscribeDuringEvent(sender, createdSub);
-            sender.Subscribe(subCreator);
+            SubscribeDuringEvent subCreator = new SubscribeDuringEvent(_event, createdSub);
+            _event.Subscribe(subCreator);
 
             SendEvent();
 
@@ -139,21 +137,21 @@ namespace Tests
         [Test]
         public void Clear_SubscriberIsntTriggered()
         {
-            sender.Clear();
+            _event.Clear();
             SendEvent();
 
-            Assert.False(receiver.triggered);
+            Assert.False(subscriber.triggered);
         }
 
         [Test]
         public void Clear_NewSubscriberDuringEvent_IsntTriggered()
         {
             SomeSubscriber createdSub = new SomeSubscriber();
-            SubscribeDuringEvent subcreator = new SubscribeDuringEvent(sender, createdSub);
-            sender.Subscribe(subcreator);
+            SubscribeDuringEvent subcreator = new SubscribeDuringEvent(_event, createdSub);
+            _event.Subscribe(subcreator);
 
             SendEvent();
-            sender.Clear();
+            _event.Clear();
             SendEvent();
 
             Assert.False(createdSub.triggered);
@@ -162,9 +160,9 @@ namespace Tests
         [Test]
         public void SendingEvent_FromSubscriber_ThrowsException()
         {
-            SubscriberThatSendsEvent evilSub = new SubscriberThatSendsEvent(sender);
+            SubscriberThatSendsEvent evilSub = new SubscriberThatSendsEvent(_event);
 
-            sender.Subscribe(evilSub);
+            _event.Subscribe(evilSub);
 
             Assert.Throws<System.InvalidOperationException>(
                 () => SendEvent()
