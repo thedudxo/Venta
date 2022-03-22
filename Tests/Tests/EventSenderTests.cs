@@ -3,7 +3,7 @@ using DudCo.Events;
 
 namespace Tests
 {
-    public class EventSenderTests
+    public partial class EventSenderTests
     {
         EventSender<ISomeSubscriber> sender;
         SomeSubscriber receiver;
@@ -114,26 +114,61 @@ namespace Tests
         [Test]
         public void SubscribeDuringEvent_TriggersNewSub()
         {
-            SomeSubscriber sub2 = new SomeSubscriber();
-            SubscribeDuringEvent sub = new SubscribeDuringEvent(sender, sub2);
-            sender.Subscribe(sub);
+            SomeSubscriber createdSub = new SomeSubscriber();
+            SubscribeDuringEvent subCreator = new SubscribeDuringEvent(sender, createdSub);
+            sender.Subscribe(subCreator);
 
             SendEvent();
             SendEvent();
 
-            Assert.True(sub2.triggered);
+            Assert.True(createdSub.triggered);
         }
 
         [Test]
         public void SubscribeDuringEvent_DoesntTriggerEarly()
         {
-            SomeSubscriber sub2 = new SomeSubscriber();
-            SubscribeDuringEvent sub = new SubscribeDuringEvent(sender, sub2);
-            sender.Subscribe(sub);
+            SomeSubscriber createdSub = new SomeSubscriber();
+            SubscribeDuringEvent subCreator = new SubscribeDuringEvent(sender, createdSub);
+            sender.Subscribe(subCreator);
 
             SendEvent();
 
-            Assert.False(sub2.triggered);
+            Assert.False(createdSub.triggered);
+        }
+
+        [Test]
+        public void Clear_SubscriberIsntTriggered()
+        {
+            sender.Clear();
+            SendEvent();
+
+            Assert.False(receiver.triggered);
+        }
+
+        [Test]
+        public void Clear_NewSubscriberDuringEvent_IsntTriggered()
+        {
+            SomeSubscriber createdSub = new SomeSubscriber();
+            SubscribeDuringEvent subcreator = new SubscribeDuringEvent(sender, createdSub);
+            sender.Subscribe(subcreator);
+
+            SendEvent();
+            sender.Clear();
+            SendEvent();
+
+            Assert.False(createdSub.triggered);
+        }
+
+        [Test]
+        public void SendingEvent_FromSubscriber_ThrowsException()
+        {
+            SubscriberThatSendsEvent evilSub = new SubscriberThatSendsEvent(sender);
+
+            sender.Subscribe(evilSub);
+
+            Assert.Throws<System.InvalidOperationException>(
+                () => SendEvent()
+                );
         }
     }
 }

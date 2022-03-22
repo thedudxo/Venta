@@ -19,6 +19,8 @@ namespace DudCo.Events
         SubscriptionMethod subscribe;
         UnsubscriptionMethod unsubscribe;
 
+        bool sending = false;
+
         public EventSender()
         {
             subscribe = AddNow;
@@ -27,6 +29,10 @@ namespace DudCo.Events
 
         public void Send(Action<T> notify)
         {
+            if (sending) throw new InvalidOperationException("Recursive event sending is not supported");
+            //this is beacuse un/subscribing during an event won't happen untill the recursion ends
+            sending = true;
+
             subscribe = AddAfter;
             unsubscribe = RemoveAfter;
 
@@ -45,6 +51,8 @@ namespace DudCo.Events
 
             toSubscribe.Clear();
             toUnsubscribe.Clear();
+
+            sending = false;
         }
 
         public void Subscribe(T subscriber, int priority = 0)
@@ -72,5 +80,10 @@ namespace DudCo.Events
 
         void RemoveAfter(T sub)
             => toUnsubscribe.Enqueue(sub);
+
+        public void Clear()
+        {
+            subscribers = new PrioritisedList<T>();
+        }
     }
 }
