@@ -16,15 +16,21 @@ namespace DudCo.Events
 
         delegate void SubscriptionMethod(T subscriber, int priority);
         delegate void UnsubscriptionMethod(T subscriber);
-        SubscriptionMethod subscribe;
-        UnsubscriptionMethod unsubscribe;
+        SubscriptionMethod subscribeAction;
+        UnsubscriptionMethod unsubscribeAction;
+
+        PriorityDictionary typePriorities;
 
         bool sending = false;
 
-        public EventSender()
+        public EventSender() : this(new EmptyPriorityDictionary()) { }
+
+        public EventSender(PriorityDictionary typePriorities)
         {
-            subscribe = AddNow;
-            unsubscribe = RemoveNow;
+            this.typePriorities = typePriorities;
+
+            subscribeAction = AddNow;
+            unsubscribeAction = RemoveNow;
         }
 
         public void Send(Action<T> notify)
@@ -33,26 +39,41 @@ namespace DudCo.Events
             //this is beacuse un/subscribing during an event won't happen untill the recursion ends
             sending = true;
 
-            subscribe = AddAfter;
-            unsubscribe = RemoveAfter;
+            DelaySubscriptions();
 
-            foreach (KeyValuePair<int,LinkedList<T>> pair in subscribers)
+            foreach (KeyValuePair<int, LinkedList<T>> pair in subscribers)
                 foreach (T subscriber in pair.Value)
                     notify(subscriber);
 
-            subscribe = AddNow;
-            unsubscribe = RemoveNow;
+            UnDelaySubscriptions();
 
-            foreach((T value, int priority) subscriber in toSubscribe)
-                AddNow(subscriber.value, subscriber.priority);
+            ExecuteDelayedSubscriptionRequests();
+
+            sending = false;
+        }
+
+        private void ExecuteDelayedSubscriptionRequests()
+        {
+            foreach ((T value, int priority) in toSubscribe)
+                AddNow(value, priority);
 
             foreach (T sub in toUnsubscribe)
                 RemoveNow(sub);
 
             toSubscribe.Clear();
             toUnsubscribe.Clear();
+        }
 
-            sending = false;
+        private void UnDelaySubscriptions()
+        {
+            subscribeAction = AddNow;
+            unsubscribeAction = RemoveNow;
+        }
+
+        private void DelaySubscriptions()
+        {
+            subscribeAction = AddAfter;
+            unsubscribeAction = RemoveAfter;
         }
 
         public void Subscribe(T subscriber, int priority = 0)
@@ -60,12 +81,12 @@ namespace DudCo.Events
             if (subscribers.Contains(subscriber))
                 throw new InvalidOperationException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
             else 
-                subscribe(subscriber, priority);
+                subscribeAction(subscriber, priority);
         }
         public void Unsubscribe(T subscriber)
         {
             if (subscribers.Contains(subscriber))
-                unsubscribe(subscriber);
+                unsubscribeAction(subscriber);
             else throw new InvalidOperationException($"Cannot unsubscribe '{subscriber}'. was not subscribed.");
         }
 
