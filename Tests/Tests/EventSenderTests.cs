@@ -1,5 +1,6 @@
-using NUnit.Framework;
 using DudCo.Events;
+using NUnit.Framework;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -123,34 +124,11 @@ namespace Tests
 
         }
 
-        class Priority : EventSenderTests
+        partial class Priority : EventSenderTests
         {
             public Priority()
             {
                 OrderedSubscriber.Clear();
-            }
-
-            class OrderedSubscriber : ISomeSubscriber
-            {
-                string _name;
-
-                public OrderedSubscriber(string name = "")
-                {
-                    _name = name;
-                }
-
-                static int triggerCount = 0;
-                public int triggeredAt = 0;
-                public bool triggered = false;
-
-                public void OnTrigger()
-                {
-                    triggered = true;
-                    triggeredAt = triggerCount;
-                    triggerCount++;
-                }
-
-                public static void Clear() => triggerCount = 0;
             }
 
             [Test]
@@ -225,6 +203,54 @@ namespace Tests
                 Assert.Throws<System.InvalidOperationException>(
                     () => SendEvent()
                     );
+            }
+        }
+
+        class PriorityDictionaryTests : EventSenderTests
+        {
+            class OrderedSubscriberA : OrderedSubscriber { }
+            class OrderedSubscriberB : OrderedSubscriber { }
+            class OrderedSubscriberC : OrderedSubscriber { }
+
+            static readonly Dictionary<char, int> priorityByChar = new Dictionary<char, int>
+            {
+                {'a', 0},
+                {'b', 1},
+                {'c', 2},
+            };
+
+            class TestPriorities : PriorityDictionary
+            {
+                public TestPriorities()
+                {
+                    Add<OrderedSubscriberA>(priorityByChar['a']);
+                    Add<OrderedSubscriberB>(priorityByChar['b']);
+                    Add<OrderedSubscriberC>(priorityByChar['c']);
+                }
+            }
+
+            static readonly TestPriorities priorities = new();
+            EventSender<ISomeSubscriber> CreateEvent() => new(priorities);
+
+
+            [Test]
+            public void CreateEventSender_WithPriorityDictionary()
+            {
+                Assert.DoesNotThrow(() => CreateEvent());
+            }
+
+            [Test]
+            public void SubscribeItemInPriorityDictionary_UsesThatPriority()
+            {
+                _event = CreateEvent();
+
+                OrderedSubscriberA subA = new();
+                OrderedSubscriberB subB = new();
+
+                _event.Subscribe(subA);
+                _event.Subscribe(subB);
+
+                Assert.AreEqual(priorityByChar['b'], subB.triggeredAt);
             }
         }
     }
