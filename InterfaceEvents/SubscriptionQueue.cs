@@ -45,7 +45,14 @@ namespace DudCo.Events
             unsubscribeAction = RemoveAfter;
         }
 
-        public void Subscribe(T subscriber, int priority) => subscribeAction(subscriber, priority);
+        public void Subscribe(T subscriber, int priority)
+        {
+            // subscribe something thats allready qeued?
+            if (subscribers.Contains(subscriber))
+                throw new ArgumentException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
+
+            subscribeAction(subscriber, priority);
+        }
         public void Unsubscribe(T subscriber) => unsubscribeAction(subscriber);
 
         void AddNow(T subscriber, int priority)

@@ -44,9 +44,6 @@ namespace DudCo.Events
 
         public void Subscribe(T subscriber, int priority = 0)
         {
-            if (subscribers.Contains(subscriber))
-                throw new InvalidOperationException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
-
             if (typePriorities.ContainsKey(subscriber.GetType()))
                 throw new ArgumentException($"Subscriber type had an entry in the priority dictionary. Use {nameof(SubscribeByRegisteredType)} instead.", nameof(subscriber));
 

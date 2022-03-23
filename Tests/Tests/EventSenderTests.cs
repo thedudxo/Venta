@@ -43,9 +43,9 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void AllreadySubscribed_Throws_InvaildOpException()
+            public void AllreadySubscribed_Throws_ArgumentException()
             {
-                Assert.Throws<System.InvalidOperationException>(
+                Assert.Throws<System.ArgumentException>(
                     () => _event.Subscribe(subscriber));
             }
 
@@ -277,6 +277,20 @@ namespace Tests.EventSenders
                 Assert.Throws<System.ArgumentException>
                 (() =>
                     _event.SubscribeByRegisteredType(subscriber)
+                );
+            }
+
+            [Test]
+            public void SubscribeByRegisteredType_ThrowsException_IfAllreadySubscribed()
+            {
+                _event = CreateEvent();
+
+                OrderedSubscriberA subA = new();
+                _event.SubscribeByRegisteredType(subA);
+
+                Assert.Throws<System.ArgumentException>
+                (() =>
+                    _event.SubscribeByRegisteredType(subA)
                 );
             }
         }
