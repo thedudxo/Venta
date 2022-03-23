@@ -1,11 +1,11 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Linq;
 
 namespace DudCo.Events
 {
     /// <summary>
-    /// Prioritised interface events
-    /// uses subscription queues to avoid modification while sending out events
+    /// Prioritised interface events.
+    /// Uses subscription queues to avoid modification while sending out events.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class EventSender<T>
@@ -16,24 +16,39 @@ namespace DudCo.Events
 
         bool sending = false;
 
+        /// <summary>
+        /// Create an EventSender with an empty <see cref="PriorityDictionary"/>.
+        /// </summary>
         public EventSender() : this(new EmptyPriorityDictionary()) { }
+
+        /// <summary>
+        /// Create an EventSender with a <see cref="PriorityDictionary"/>.
+        /// </summary>
+        /// <param name="typePriorities"></param>
         public EventSender(PriorityDictionary typePriorities)
         {
             this.typePriorities = typePriorities;
             subscriptionQueue = new SubscriptionQueue<T>(subscribers);
         }
 
+        /// <summary>
+        /// Send the event to all subscribers.
+        /// </summary>
+        /// <param name="notify">Delegate used to send the event.</param>
+        /// <exception cref="InvalidOperationException"></exception>
         public void Send(Action<T> notify)
         {
             if (sending) throw new InvalidOperationException("Recursive event sending is not supported");
             //this is beacuse un/subscribing during an event won't happen untill the recursion ends
+
             sending = true;
 
             subscriptionQueue.DelaySubscriptions();
 
-            foreach (KeyValuePair<int, LinkedList<T>> pair in subscribers)
-                foreach (T subscriber in pair.Value)
-                    notify(subscriber);
+            foreach (var subscriber in subscribers.SelectMany(pair => pair.Value))
+            {
+                notify(subscriber);
+            }
 
             subscriptionQueue.UnDelaySubscriptions();
 
@@ -42,6 +57,12 @@ namespace DudCo.Events
             sending = false;
         }
 
+        /// <summary>
+        /// Subscribe an item to the event.
+        /// </summary>
+        /// <param name="subscriber">The item to subscribe.</param>
+        /// <param name="priority">Priority the item should have. defaults to 0.</param>
+        /// <exception cref="ArgumentException"></exception>
         public void Subscribe(T subscriber, int priority = 0)
         {
             if (typePriorities.ContainsKey(subscriber.GetType()))
@@ -50,6 +71,11 @@ namespace DudCo.Events
             subscriptionQueue.Subscribe(subscriber, priority);
         }
 
+        /// <summary>
+        /// Subscribe an item in the <see cref="PriorityDictionary"/> to the event.
+        /// </summary>
+        /// <param name="subscriber">The item to subscribe.</param>
+        /// <exception cref="ArgumentException"></exception>
         public void SubscribeByRegisteredType(T subscriber)
         {
             Type subType = subscriber.GetType();
@@ -60,7 +86,15 @@ namespace DudCo.Events
             subscriptionQueue.Subscribe(subscriber, typePriorities[subType]);
         }
 
+        /// <summary>
+        /// Unsubscribe an item from the event.
+        /// </summary>
+        /// <param name="subscriber">The item to Unsubscribe.</param>
         public void Unsubscribe(T subscriber) => subscriptionQueue.Unsubscribe(subscriber);
+        
+        /// <summary>
+        /// Unsubscribe everything.
+        /// </summary>
         public void Clear() => subscribers = new PrioritisedList<T>();
     }
 }
