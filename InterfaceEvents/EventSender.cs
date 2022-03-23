@@ -80,9 +80,28 @@ namespace DudCo.Events
         {
             if (subscribers.Contains(subscriber))
                 throw new InvalidOperationException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
-            else 
-                subscribeAction(subscriber, priority);
+            else
+            {
+                Type subType = subscriber.GetType();
+
+                if (typePriorities.ContainsKey(subType))
+                    subscribeAction(subscriber, typePriorities[subType]);
+
+                else
+                    subscribeAction(subscriber, priority);
+            }
         }
+
+        public void SubscribeByRegisteredType(T subscriber)
+        {
+            Type subType = subscriber.GetType();
+
+            if (typePriorities.ContainsKey(subType) == false) 
+                throw new ArgumentException("Was not found in the priority dictionary", nameof(subscriber));
+            
+            subscribeAction(subscriber, typePriorities[subType]);
+        }
+
         public void Unsubscribe(T subscriber)
         {
             if (subscribers.Contains(subscriber))

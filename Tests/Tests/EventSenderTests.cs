@@ -212,20 +212,18 @@ namespace Tests
             class OrderedSubscriberB : OrderedSubscriber { }
             class OrderedSubscriberC : OrderedSubscriber { }
 
-            static readonly Dictionary<char, int> priorityByChar = new Dictionary<char, int>
+            public PriorityDictionaryTests()
             {
-                {'a', 0},
-                {'b', 1},
-                {'c', 2},
-            };
+                OrderedSubscriber.Clear();
+            }
 
             class TestPriorities : PriorityDictionary
             {
                 public TestPriorities()
                 {
-                    Add<OrderedSubscriberA>(priorityByChar['a']);
-                    Add<OrderedSubscriberB>(priorityByChar['b']);
-                    Add<OrderedSubscriberC>(priorityByChar['c']);
+                    Add<OrderedSubscriberA>(1);
+                    Add<OrderedSubscriberB>(2);
+                    Add<OrderedSubscriberC>(3);
                 }
             }
 
@@ -250,7 +248,37 @@ namespace Tests
                 _event.Subscribe(subA);
                 _event.Subscribe(subB);
 
-                Assert.AreEqual(priorityByChar['b'], subB.triggeredAt);
+                SendEvent();
+
+                Assert.AreEqual(1, subA.triggeredAt);
+            }
+
+            [Test]
+            public void SubscribeByRegisteredType_UsesPriorityFromDictionary()
+            {
+                _event = CreateEvent();
+
+                OrderedSubscriberA subA = new();
+                OrderedSubscriberB subB = new();
+
+                _event.SubscribeByRegisteredType(subA);
+                _event.SubscribeByRegisteredType(subB);
+
+                SendEvent();
+
+                Assert.AreEqual(1, subA.triggeredAt);
+
+            }
+
+            [Test]
+            public void SubscribeByRegisteredType_ThrowsException_IfNotInPriorityDictionary()
+            {
+                _event = CreateEvent();
+
+                Assert.Throws<System.ArgumentException>
+                (() =>
+                    _event.SubscribeByRegisteredType(subscriber)
+                );
             }
         }
     }
