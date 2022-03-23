@@ -53,7 +53,13 @@ namespace DudCo.Events
 
             subscribeAction(subscriber, priority);
         }
-        public void Unsubscribe(T subscriber) => unsubscribeAction(subscriber);
+        public void Unsubscribe(T subscriber)
+        {
+            if (subscribers.Contains(subscriber) == false)
+                throw new ArgumentException($"Cannot unsubscribe '{subscriber}'. was not subscribed.");
+            
+            unsubscribeAction(subscriber);
+        }
 
         void AddNow(T subscriber, int priority)
             => subscribers.Add(subscriber, priority);

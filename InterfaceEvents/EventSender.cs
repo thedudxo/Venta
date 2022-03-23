@@ -60,16 +60,7 @@ namespace DudCo.Events
             subscriptionQueue.Subscribe(subscriber, typePriorities[subType]);
         }
 
-        public void Unsubscribe(T subscriber)
-        {
-            if (subscribers.Contains(subscriber))
-                subscriptionQueue.Unsubscribe(subscriber);
-            else throw new InvalidOperationException($"Cannot unsubscribe '{subscriber}'. was not subscribed.");
-        }
-
-        public void Clear()
-        {
-            subscribers = new PrioritisedList<T>();
-        }
+        public void Unsubscribe(T subscriber) => subscriptionQueue.Unsubscribe(subscriber);
+        public void Clear() => subscribers = new PrioritisedList<T>();
     }
 }

@@ -50,11 +50,11 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void UnsubscribingNotSubscribed_Throws_InvaildOpException()
+            public void UnsubscribingNotSubscribed_Throws_ArgumentException()
             {
                 _event.Unsubscribe(subscriber);
 
-                Assert.Throws<System.InvalidOperationException>(
+                Assert.Throws<System.ArgumentException>(
                     () => _event.Unsubscribe(subscriber));
             }
 
