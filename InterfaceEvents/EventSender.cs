@@ -47,10 +47,8 @@ namespace DudCo.Events
             if (subscribers.Contains(subscriber))
                 throw new InvalidOperationException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
 
-            Type subType = subscriber.GetType();
-
-            if (typePriorities.ContainsKey(subType))
-                priority = typePriorities[subType];
+            if (typePriorities.ContainsKey(subscriber.GetType()))
+                throw new ArgumentException($"Subscriber type had an entry in the priority dictionary. Use {nameof(SubscribeByRegisteredType)} instead.", nameof(subscriber));
 
             subscriptionQueue.Subscribe(subscriber, priority);
         }

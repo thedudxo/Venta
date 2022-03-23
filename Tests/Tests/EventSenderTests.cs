@@ -239,19 +239,17 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void SubscribeItemInPriorityDictionary_UsesThatPriority()
+            public void SubscribeItemInPriorityDictionary_ThrowsException()
             {
                 _event = CreateEvent();
 
                 OrderedSubscriberA subA = new();
-                OrderedSubscriberB subB = new();
 
-                _event.Subscribe(subA);
-                _event.Subscribe(subB);
+                Assert.Throws<System.ArgumentException>
+                (() =>
+                    _event.Subscribe(subA)
+                );
 
-                SendEvent();
-
-                Assert.AreEqual(1, subA.triggeredAt);
             }
 
             [Test]
