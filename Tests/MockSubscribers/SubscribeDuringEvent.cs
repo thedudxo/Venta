@@ -2,30 +2,27 @@
 
 namespace Tests
 {
-    public partial class EventSenderTests
+    class SubscribeDuringEvent : ISomeSubscriber
     {
-        class SubscribeDuringEvent : ISomeSubscriber
+        EventSender<ISomeSubscriber> sender;
+        ISomeSubscriber newSub;
+        public bool hasSubbed = false;
+
+        public SubscribeDuringEvent(EventSender<ISomeSubscriber> sender, ISomeSubscriber newSub)
         {
-            EventSender<ISomeSubscriber> sender;
-            ISomeSubscriber newSub;
-            public bool hasSubbed = false;
+            this.sender = sender;
+            this.newSub = newSub;
+        }
 
-            public SubscribeDuringEvent(EventSender<ISomeSubscriber> sender, ISomeSubscriber newSub)
+        public bool triggered = false;
+
+        public void OnTrigger()
+        {
+            triggered = true;
+            if (hasSubbed == false)
             {
-                this.sender = sender;
-                this.newSub = newSub;
-            }
-
-            public bool triggered = false;
-
-            public void OnTrigger()
-            {
-                triggered = true;
-                if (hasSubbed == false)
-                {
-                    sender.Subscribe(newSub);
-                    hasSubbed = true;
-                }
+                sender.Subscribe(newSub);
+                hasSubbed = true;
             }
         }
     }

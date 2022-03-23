@@ -1,8 +1,9 @@
 using DudCo.Events;
+using Tests;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace Tests
+namespace Tests.EventSenders
 {
     [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     public partial class EventSenderTests
@@ -124,7 +125,7 @@ namespace Tests
 
         }
 
-        partial class Priority : EventSenderTests
+        class Priority : EventSenderTests
         {
             public Priority()
             {
