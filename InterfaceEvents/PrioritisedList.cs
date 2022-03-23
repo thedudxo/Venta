@@ -7,13 +7,13 @@ namespace DudCo.Events
     {
         //similar concept to the contents and index sections of a book
         //this setup allows both Add() and Remove() to be O(log n) Operations
-        SortedDictionary<int, LinkedList<T>> contents;
-        Dictionary<T, (LinkedListNode<T> node, int priority)> indexes;
+        readonly SortedDictionary<int, LinkedList<T>> ItemsByPriority;
+        readonly Dictionary<T, (LinkedListNode<T> node, int priority)> PriorityByItem;
 
         internal PrioritisedList()
         {
-            contents = new SortedDictionary<int, LinkedList<T>>();
-            indexes = new Dictionary<T, (LinkedListNode<T>, int)>();
+            ItemsByPriority = new SortedDictionary<int, LinkedList<T>>();
+            PriorityByItem = new Dictionary<T, (LinkedListNode<T>, int)>();
         }
 
         public void Add(T item, int priority)
@@ -22,17 +22,17 @@ namespace DudCo.Events
             priority *= -1;
             LinkedListNode<T> node;
 
-            bool priorityAllreadyExists = contents.ContainsKey(priority);
+            bool priorityAllreadyExists = ItemsByPriority.ContainsKey(priority);
             if (priorityAllreadyExists)
             {
-                LinkedList<T> items = contents[priority];
+                LinkedList<T> items = ItemsByPriority[priority];
                 node = items.AddLast(item);
             }
             else
                 node = CreateAndAddToNewItemsList(item, priority);
 
             var index = (node, priority);
-            indexes[item] = index;
+            PriorityByItem[item] = index;
         }
 
         private LinkedListNode<T> CreateAndAddToNewItemsList(T item, int prio)
@@ -41,35 +41,35 @@ namespace DudCo.Events
             LinkedListNode<T> node;
 
             node = items.AddLast(item); 
-            contents.Add(prio, items); 
+            ItemsByPriority.Add(prio, items); 
 
             return node;
         }
 
         public void Remove(T item)
         {
-            LinkedListNode<T> node = indexes[item].node;
+            LinkedListNode<T> node = PriorityByItem[item].node;
             LinkedList<T> items = node.List; 
 
             items.Remove(item);
 
             if (items.Count == 0)
             {
-                int priority = indexes[item].priority;
-                contents.Remove(priority);
+                int priority = PriorityByItem[item].priority;
+                ItemsByPriority.Remove(priority);
             }
             
-            indexes.Remove(item);
+            PriorityByItem.Remove(item);
         }
 
         public bool Contains(T item)
         {
-            return indexes.ContainsKey(item);
+            return PriorityByItem.ContainsKey(item);
         }
 
         public IEnumerator<KeyValuePair<int, LinkedList<T>>> GetEnumerator()
         {
-            return contents.GetEnumerator();
+            return ItemsByPriority.GetEnumerator();
         }
 
         IEnumerator IEnumerable.GetEnumerator()

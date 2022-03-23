@@ -11,14 +11,12 @@ namespace DudCo.Events
     public class EventSender<T>
     {
         PrioritisedList<T> subscribers = new PrioritisedList<T>();
-
-        SubscriptionQueue<T> subscriptionQueue;
-        PriorityDictionary typePriorities;
+        readonly SubscriptionQueue<T> subscriptionQueue;
+        readonly PriorityDictionary typePriorities;
 
         bool sending = false;
 
         public EventSender() : this(new EmptyPriorityDictionary()) { }
-
         public EventSender(PriorityDictionary typePriorities)
         {
             this.typePriorities = typePriorities;
@@ -48,16 +46,13 @@ namespace DudCo.Events
         {
             if (subscribers.Contains(subscriber))
                 throw new InvalidOperationException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
-            else
-            {
-                Type subType = subscriber.GetType();
 
-                if (typePriorities.ContainsKey(subType))
-                    subscriptionQueue.Subscribe(subscriber, typePriorities[subType]);
+            Type subType = subscriber.GetType();
 
-                else
-                    subscriptionQueue.Subscribe(subscriber, priority);
-            }
+            if (typePriorities.ContainsKey(subType))
+                priority = typePriorities[subType];
+
+            subscriptionQueue.Subscribe(subscriber, priority);
         }
 
         public void SubscribeByRegisteredType(T subscriber)
