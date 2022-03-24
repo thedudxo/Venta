@@ -58,7 +58,7 @@ namespace DudCo.Events
         }
 
         /// <summary>
-        /// Subscribe an item to the event.
+        /// Subscribe an item to this event.
         /// </summary>
         /// <param name="subscriber">The item to subscribe.</param>
         /// <param name="priority">Priority the item should have. defaults to 0.</param>
