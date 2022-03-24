@@ -44,22 +44,26 @@ public void SubscribeSomething()
 }
 ```
 
-my own project uses a dictionary to store what priorites things should have. Optional, but usefull to have.
+### Type Priority Dictionaries
+Type priority dictionaries let you specify what priority any instance of a type will be given when subscribing via ``eventSender.SubscribeByRegisteredType()``
+
+An item in the dictionary subscribed with ``eventSender.Subscribe()`` will throw an exception.
+
+```   
+public class MyPriorityDictionary : PriorityDictionary
+    {
+        public MyPriorityDictionary()
+        {
+            Add<ClassA>(0);
+            Add<ClassB>(After<ClassA>());
+            Add<ClassC>(Before<ClassB>());
+        }
+    }
 ```
-public static readonly Dictionary<Type, int> SetupPriorities;
 
-public static void SetupPriorityDictionary()
-{
-    Add<Namespace.ClassA>(0);
-    Add<Namespace.ClassB>(After<Namespace.ClassA>());
-    Add<Namespace.ClassC>(After<Namespace.ClassB>());
-}
-
-static void Add<T>(int priority) => SetupPriorities.Add(typeof(T), priority);
-static int PriorityOf<T>() => SetupPriorities[typeof(T)];
-static int After<T>() => PriorityOf<T>() - 1;
-static int Before<T>() => PriorityOf<T>() + 1;
-```       
+```
+public EventSender<ISetup> myEvent = new EventSender<ISetup>(new MyPriorityDictionary());
+```
 
 ### Sending event
 ```
