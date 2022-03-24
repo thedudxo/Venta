@@ -5,7 +5,7 @@ Subscribing/Unsubscribing during an event will take effect afterwards
 ### Why interfaces?
 - No unesseceary Sender/Args parameters (though you can add them if needed)
 - more explicit declerations:
-  - It's immedately clear when a class uses events
+  - It's immedately clear when a class receives events
   - Guarenteed to use the same method names
 - personally prefer ".Subscribe(x)" to "+="
 
@@ -24,7 +24,7 @@ using DudCo.Events;
 
 public class SomeEventSender
 {
-  public EventSender<INotifyOnAnyRespawn> someEvent = new EventSender<INotifyOnSomeEvent>();
+  public EventSender<INotifyOnSomeEvent> someEvent = new EventSender<INotifyOnSomeEvent>();
 }
 
 public class SomeEventReceiver : INotifyOnSomeEvent
@@ -45,7 +45,7 @@ public void SubscribeSomething()
 ```
 
 ### Type Priority Dictionaries
-Type priority dictionaries let you specify what priority any instance of a type will be given when subscribing via ``eventSender.SubscribeByRegisteredType()``
+Type priority dictionaries let you specify what priority all instances of a type will be given when subscribing via ``eventSender.SubscribeByRegisteredType()``
 
 An item in the dictionary subscribed with ``eventSender.Subscribe()`` will throw an exception.
 
