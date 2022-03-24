@@ -45,32 +45,28 @@ namespace DudCo.Events
             unsubscribeAction = RemoveAfter;
         }
 
-        public void Subscribe(T subscriber, int priority)
+        public void Subscribe(T subscriber, int priority) => subscribeAction(subscriber, priority);
+        public void Unsubscribe(T subscriber) => unsubscribeAction(subscriber);
+
+        void AddNow(T subscriber, int priority)
         {
-            // subscribe something thats allready qeued?
             if (subscribers.Contains(subscriber))
                 throw new ArgumentException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
 
-            subscribeAction(subscriber, priority);
+            subscribers.Add(subscriber, priority);
         }
-        public void Unsubscribe(T subscriber)
+
+        void RemoveNow(T subscriber)
         {
             if (subscribers.Contains(subscriber) == false)
                 throw new ArgumentException($"Cannot unsubscribe '{subscriber}'. was not subscribed.");
-            
-            unsubscribeAction(subscriber);
-        }
 
-        void AddNow(T subscriber, int priority)
-            => subscribers.Add(subscriber, priority);
+            subscribers.Remove(subscriber);
+        }
 
         void AddAfter(T subscriber, int priority)
             => toSubscribe.Enqueue((subscriber, priority));
-
-        void RemoveNow(T sub)
-            => subscribers.Remove(sub);
-
-        void RemoveAfter(T sub)
-            => toUnsubscribe.Enqueue(sub);
+        void RemoveAfter(T subscriber)
+            => toUnsubscribe.Enqueue(subscriber);
     }
 }

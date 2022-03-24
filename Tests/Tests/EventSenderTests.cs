@@ -95,6 +95,34 @@ namespace Tests.EventSenders
 
                 Assert.False(createdSub.triggered);
             }
+
+            [Test]
+            public void AllreadySubscribedDuringEvent_ThrowsArgumentException()
+            {
+                SomeSubscriber createdSub = new SomeSubscriber();
+                SubscribeDuringEvent subCreator = new SubscribeDuringEvent(_event, createdSub);
+                SubscribeDuringEvent subCreator2 = new SubscribeDuringEvent(_event, createdSub);
+                _event.Subscribe(subCreator);
+                _event.Subscribe(subCreator2);
+
+                Assert.Throws<System.ArgumentException>(
+                    () =>
+                    SendEvent()
+                );
+            }
+
+            [Test]
+            public void AllreadyUnSubscribedDuringEvent_ThrowsArgumentException()
+            {
+                var unSub = new UnSubscribeTwiceDuringEvent(_event);
+
+                _event.Subscribe(unSub);
+
+                Assert.Throws<System.ArgumentException>(
+                    () =>
+                    SendEvent()
+                );
+            }
         }
 
         class Clear : EventSenderTests
