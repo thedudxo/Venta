@@ -3,7 +3,7 @@
     /// <summary>
     /// How the event notifies its subscribers.
     /// </summary>
-    public enum SendMethod
+    public enum EventSendMethod
     {
         /// <summary>
         /// Notify all subscribers, in order of priority

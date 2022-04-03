@@ -330,7 +330,7 @@ namespace Tests.EventSenders
             public void LowerPriority_NotCalled()
             {
                 var OnlyHighestPriorityEvent = new EventSender<ISomeSubscriber>();
-                OnlyHighestPriorityEvent.SendMethod = SendMethod.OnlyHighestPriority;
+                OnlyHighestPriorityEvent.SendMethod = EventSendMethod.OnlyHighestPriority;
 
                 var lowPriority = new SomeSubscriber();
                 var highPriority = new SomeSubscriber();
@@ -347,7 +347,7 @@ namespace Tests.EventSenders
             public void HigherPriority_Called()
             {
                 var OnlyHighestPriorityEvent = new EventSender<ISomeSubscriber>();
-                OnlyHighestPriorityEvent.SendMethod = SendMethod.OnlyHighestPriority;
+                OnlyHighestPriorityEvent.SendMethod = EventSendMethod.OnlyHighestPriority;
 
                 var lowPriority = new SomeSubscriber();
                 var highPriority = new SomeSubscriber();
@@ -364,7 +364,7 @@ namespace Tests.EventSenders
             public void AllSubscribers_InHighestPriorityBraket_Called()
             {
                 var OnlyHighestPriorityEvent = new EventSender<ISomeSubscriber>();
-                OnlyHighestPriorityEvent.SendMethod = SendMethod.OnlyHighestPriority;
+                OnlyHighestPriorityEvent.SendMethod = EventSendMethod.OnlyHighestPriority;
 
                 var lowPriority = new SomeSubscriber();
                 var highPriority = new SomeSubscriber();

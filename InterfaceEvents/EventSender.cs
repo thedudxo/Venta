@@ -13,12 +13,12 @@ namespace DudCo.Events
         readonly SubscriptionQueue<T> subscriptionQueue;
         readonly PriorityDictionary typePriorities;
 
-        SendMethod _sendMethod;
+        EventSendMethod _sendMethod;
 
         /// <summary>
-        /// what <see cref="Events.SendMethod"/> to use. <see cref="Events.SendMethod.All"/> by default.
+        /// what <see cref="Events.EventSendMethod"/> to use. <see cref="Events.EventSendMethod.All"/> by default.
         /// </summary>
-        public SendMethod SendMethod
+        public EventSendMethod SendMethod
         {
             get => _sendMethod;
             set
@@ -27,11 +27,11 @@ namespace DudCo.Events
 
                 switch (_sendMethod)
                 {
-                    case SendMethod.All:
+                    case EventSendMethod.All:
                         sendStratergy = new SendToAllSubscribers<T>();
                         break;
 
-                    case SendMethod.OnlyHighestPriority:
+                    case EventSendMethod.OnlyHighestPriority:
                         sendStratergy = new SendToHighestPriorityBracket<T>();
                         break;
 
@@ -57,7 +57,7 @@ namespace DudCo.Events
         {
             this.typePriorities = typePriorities;
             subscriptionQueue = new SubscriptionQueue<T>(subscribers);
-            SendMethod = SendMethod.All;
+            SendMethod = EventSendMethod.All;
         }
 
         /// <summary>
