@@ -5,7 +5,7 @@ Subscribing/Unsubscribing during an event will take effect afterwards
 ### Why interfaces?
 - No unesseceary Sender/Args parameters (though you can add them if needed)
 - more explicit declerations:
-  - It's immedately clear when a class uses events
+  - It's immedately clear when a class receives events
   - Guarenteed to use the same method names
 - personally prefer ".Subscribe(x)" to "+="
 
@@ -24,7 +24,7 @@ using DudCo.Events;
 
 public class SomeEventSender
 {
-  public EventSender<INotifyOnAnyRespawn> someEvent = new EventSender<INotifyOnSomeEvent>();
+  public EventSender<INotifyOnSomeEvent> someEvent = new EventSender<INotifyOnSomeEvent>();
 }
 
 public class SomeEventReceiver : INotifyOnSomeEvent
@@ -44,22 +44,26 @@ public void SubscribeSomething()
 }
 ```
 
-my own project uses a dictionary to store what priorites things should have. Optional, but usefull to have.
+### Type Priority Dictionaries
+Type priority dictionaries let you specify what priority all instances of a type will be given when subscribing via ``eventSender.SubscribeByRegisteredType()``
+
+An item in the dictionary subscribed with ``eventSender.Subscribe()`` will throw an exception.
+
+```   
+public class MyPriorityDictionary : PriorityDictionary
+    {
+        public MyPriorityDictionary()
+        {
+            Add<ClassA>(0);
+            Add<ClassB>(After<ClassA>());
+            Add<ClassC>(Before<ClassB>());
+        }
+    }
 ```
-public static readonly Dictionary<Type, int> SetupPriorities;
 
-public static void SetupPriorityDictionary()
-{
-    Add<Namespace.ClassA>(0);
-    Add<Namespace.ClassB>(After<Namespace.ClassA>());
-    Add<Namespace.ClassC>(After<Namespace.ClassB>());
-}
-
-static void Add<T>(int priority) => SetupPriorities.Add(typeof(T), priority);
-static int PriorityOf<T>() => SetupPriorities[typeof(T)];
-static int After<T>() => PriorityOf<T>() - 1;
-static int Before<T>() => PriorityOf<T>() + 1;
-```       
+```
+public EventSender<ISetup> myEvent = new EventSender<ISetup>(new MyPriorityDictionary());
+```
 
 ### Sending event
 ```
