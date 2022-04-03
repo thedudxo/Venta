@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Linq;
 
 namespace DudCo.Events
 {
@@ -13,6 +12,31 @@ namespace DudCo.Events
         PrioritisedList<T> subscribers = new PrioritisedList<T>();
         readonly SubscriptionQueue<T> subscriptionQueue;
         readonly PriorityDictionary typePriorities;
+
+        SendMethod _sendMethod;
+        public SendMethod SendMethod
+        {
+            get => _sendMethod;
+            set
+            {
+                _sendMethod = value;
+
+                switch (_sendMethod)
+                {
+                    case SendMethod.All:
+                        sendStratergy = new SendToAllSubscribers<T>();
+                        break;
+
+                    case SendMethod.OnlyHighestPriority:
+                        throw new System.NotImplementedException();
+                        break;
+
+                    default: throw new System.NotImplementedException();
+                }
+            }
+        } 
+
+        ISendStratergy<T> sendStratergy;
 
         bool sending = false;
 
@@ -29,6 +53,7 @@ namespace DudCo.Events
         {
             this.typePriorities = typePriorities;
             subscriptionQueue = new SubscriptionQueue<T>(subscribers);
+            SendMethod = SendMethod.All;
         }
 
         /// <summary>
@@ -45,13 +70,9 @@ namespace DudCo.Events
 
             subscriptionQueue.DelaySubscriptions();
 
-            foreach (var subscriber in subscribers.SelectMany(pair => pair.Value))
-            {
-                notify(subscriber);
-            }
+            sendStratergy.SendToSubscribers(notify, subscribers);
 
             subscriptionQueue.UnDelaySubscriptions();
-
             subscriptionQueue.ExecuteDelayedSubscriptionRequests();
 
             sending = false;
