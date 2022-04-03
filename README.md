@@ -99,5 +99,5 @@ private void SendCollisionEvent(CollisionInfo info)
 
 ### Only notify highest priority
 ```
-MyEvent.SendMethod = SendMethod.OnlyHighestPriority;
+MyEvent.SendMethod = EventSendMethod.OnlyHighestPriority;
 ```
