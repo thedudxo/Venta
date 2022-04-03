@@ -14,6 +14,10 @@ namespace DudCo.Events
         readonly PriorityDictionary typePriorities;
 
         SendMethod _sendMethod;
+
+        /// <summary>
+        /// what <see cref="Events.SendMethod"/> to use. <see cref="Events.SendMethod.All"/> by default.
+        /// </summary>
         public SendMethod SendMethod
         {
             get => _sendMethod;
@@ -28,7 +32,7 @@ namespace DudCo.Events
                         break;
 
                     case SendMethod.OnlyHighestPriority:
-                        throw new System.NotImplementedException();
+                        sendStratergy = new SendToHighestPriorityBracket<T>();
                         break;
 
                     default: throw new System.NotImplementedException();

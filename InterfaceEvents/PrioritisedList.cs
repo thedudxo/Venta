@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DudCo.Events
 {
@@ -60,6 +61,11 @@ namespace DudCo.Events
             }
             
             PriorityByItem.Remove(item);
+        }
+
+        public IEnumerable<T> GetHighestPriorityItems()
+        {
+            return ItemsByPriority.First().Value;
         }
 
         public bool Contains(T item)
