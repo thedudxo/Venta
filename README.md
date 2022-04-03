@@ -1,18 +1,25 @@
-# Prioritised Interface Events. 
-Items with a higher priority are called first. negative priorities are fine.
-Subscribing/Unsubscribing during an event will take effect afterwards
+Prioritised Interface Events. 
 
-### Why interfaces?
+## Features
+- Items with a higher priority are called first. negative priorities are fine.
+- optionally only notify subscribers with the highest priority.
+- Subscribing/Unsubscribing during an event will take effect afterwards.
+- Create Priority Dictionaries that determine what order types should receive events in relative to eachother.
+
+## Why interfaces?
+
+### Pros
 - No unesseceary Sender/Args parameters (though you can add them if needed)
 - more explicit declerations:
   - It's immedately clear when a class receives events
   - Guarenteed to use the same method names
 - personally prefer ".Subscribe(x)" to "+="
+- The above features I've been able to add
 
 ### Cons
-- Not the standard way of doing it
+- Not core to c#
 - Sending an event has slighty weird syntax:
-    - >exampleEvent.Send((ISubscriberInterface sub) => sub.OnEvent());
+    - ```myEvent.Send((IOnMyEvent subscriber) => subscriber.OnMyEvent());```
     - This is to allow any method signature to be used for receving the event.
 
 
@@ -38,10 +45,8 @@ public class SomeEventReceiver : INotifyOnSomeEvent
 
 ### Subscribing with priority
 ```
-public void SubscribeSomething()
-{
-  someEvent.Subscribe(something, 5)
-}
+someEvent.Subscribe(something, 5)
+someEvent.Subscribe(somethingElse, -2)
 ```
 
 ### Type Priority Dictionaries
@@ -90,4 +95,9 @@ private void SendCollisionEvent(CollisionInfo info)
     void action(IOnCollision subscriber) => subscriber.OnCollision(info);
     collisionEvent.Send(action);
 }
+```
+
+### Only notify highest priority
+```
+MyEvent.SendMethod = SendMethod.OnlyHighestPriority;
 ```
