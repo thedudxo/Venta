@@ -71,7 +71,7 @@ namespace Tests.EventBuilders
             var subA = new SomeSubscriber();
             var subB = new SomeSubscriber();
 
-            builder.WithSendToHighestPriority();
+            builder.SendOnlyHighestPriority();
             eventSender = builder.Build();
 
             eventSender.Subscribe(subA, 0);

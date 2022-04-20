@@ -50,7 +50,7 @@
         /// Notify only the highest priority subscribers. Will notify multiple if they all have the highest priority.
         /// </summary>
         /// <returns></returns>
-        public EventBuilder<T> WithSendToHighestPriority()
+        public EventBuilder<T> SendOnlyHighestPriority()
         {
             sendStratergy = new SendToHighestPriorityBracket<T>();
             return this;

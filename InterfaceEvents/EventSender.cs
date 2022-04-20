@@ -20,6 +20,7 @@ namespace DudCo.Events
         /// <summary>
         /// what <see cref="Events.EventSendMethod"/> to use. <see cref="Events.EventSendMethod.All"/> by default.
         /// </summary>
+        [System.Obsolete("Create with EventBuilder instead")]
         public EventSendMethod SendMethod
         {
             get => _sendMethod;
@@ -47,23 +48,22 @@ namespace DudCo.Events
         /// <summary>
         /// Create an EventSender with an empty <see cref="PriorityDictionary"/>.
         /// </summary>
-        public EventSender() : this(new EmptyPriorityDictionary()) { }
+        public EventSender() 
+            : this(new EmptyPriorityDictionary()) 
+        {}
 
         /// <summary>
         /// Create an EventSender with a <see cref="PriorityDictionary"/>.
         /// </summary>
         /// <param name="typePriorities"></param>
-        public EventSender(PriorityDictionary typePriorities)
-        {
-            this.typePriorities = typePriorities;
-            subscriptionQueue = new SubscriptionQueue<T>(subscribers);
-            SendMethod = EventSendMethod.All;
-        }
+        public EventSender(PriorityDictionary typePriorities) 
+            : this(typePriorities, new SendToAllSubscribers<T>())
+        {}
 
         internal EventSender(PriorityDictionary typePriorities, ISendStratergy<T> sendStratergy)
         {
-            this.sendStratergy = sendStratergy;
             this.typePriorities = typePriorities;
+            this.sendStratergy = sendStratergy;
             subscriptionQueue = new SubscriptionQueue<T>(subscribers);
         } 
 

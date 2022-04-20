@@ -18,7 +18,7 @@ namespace Tests.EventSenders
         }
 
         void SendEvent() => Event.Send((ISomeSubscriber sub) => sub.OnTrigger());
-        void Send(EventSender<ISomeSubscriber> Event) => Event.Send((ISomeSubscriber sub) => sub.OnTrigger());
+        static void Send(EventSender<ISomeSubscriber> Event) => Event.Send((ISomeSubscriber sub) => sub.OnTrigger());
 
         class PriorityDictionaryHelper : EventSenderTests
         {
@@ -327,11 +327,17 @@ namespace Tests.EventSenders
 
         class OnlyHighestPriority : EventSenderTests
         {
+            static EventSender<ISomeSubscriber> BuildEventSender()
+            {
+                return new EventBuilder<ISomeSubscriber>()
+                    .SendOnlyHighestPriority()
+                    .Build();
+            }
+
             [Test]
             public void LowerPriority_NotCalled()
             {
-                var OnlyHighestPriorityEvent = new EventSender<ISomeSubscriber>();
-                OnlyHighestPriorityEvent.SendMethod = EventSendMethod.OnlyHighestPriority;
+                var OnlyHighestPriorityEvent = BuildEventSender();
 
                 var lowPriority = new SomeSubscriber();
                 var highPriority = new SomeSubscriber();
@@ -347,8 +353,7 @@ namespace Tests.EventSenders
             [Test]
             public void HigherPriority_Called()
             {
-                var OnlyHighestPriorityEvent = new EventSender<ISomeSubscriber>();
-                OnlyHighestPriorityEvent.SendMethod = EventSendMethod.OnlyHighestPriority;
+                var OnlyHighestPriorityEvent = BuildEventSender();
 
                 var lowPriority = new SomeSubscriber();
                 var highPriority = new SomeSubscriber();
@@ -364,8 +369,7 @@ namespace Tests.EventSenders
             [Test]
             public void AllSubscribers_InHighestPriorityBraket_Called()
             {
-                var OnlyHighestPriorityEvent = new EventSender<ISomeSubscriber>();
-                OnlyHighestPriorityEvent.SendMethod = EventSendMethod.OnlyHighestPriority;
+                var OnlyHighestPriorityEvent = BuildEventSender();
 
                 var lowPriority = new SomeSubscriber();
                 var highPriority = new SomeSubscriber();

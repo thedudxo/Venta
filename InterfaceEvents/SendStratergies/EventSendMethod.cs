@@ -3,6 +3,8 @@
     /// <summary>
     /// How the event notifies its subscribers.
     /// </summary>
+    /// 
+    [System.Obsolete("Create with EventBuilder instead")]
     public enum EventSendMethod
     {
         /// <summary>
