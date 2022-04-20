@@ -1,7 +1,5 @@
 using DudCo.Events;
-using Tests;
 using NUnit.Framework;
-using System.Collections.Generic;
 
 namespace Tests.EventSenders
 {
@@ -21,6 +19,31 @@ namespace Tests.EventSenders
 
         void SendEvent() => Event.Send((ISomeSubscriber sub) => sub.OnTrigger());
         void Send(EventSender<ISomeSubscriber> Event) => Event.Send((ISomeSubscriber sub) => sub.OnTrigger());
+
+        class PriorityDictionaryHelper : EventSenderTests
+        {
+            protected class OrderedSubscriberA : OrderedSubscriber { }
+            protected class OrderedSubscriberB : OrderedSubscriber { }
+            protected class OrderedSubscriberC : OrderedSubscriber { }
+
+            public PriorityDictionaryHelper()
+            {
+                OrderedSubscriber.Clear();
+            }
+
+            class TestPriorities : PriorityDictionary
+            {
+                public TestPriorities()
+                {
+                    Add<OrderedSubscriberA>(1);
+                    Add<OrderedSubscriberB>(2);
+                    Add<OrderedSubscriberC>(3);
+                }
+            }
+
+            static readonly TestPriorities priorities = new();
+            protected EventSender<ISomeSubscriber> CreateEvent() => new(priorities);
+        }
 
         class Subscribe : EventSenderTests
         {
@@ -236,30 +259,8 @@ namespace Tests.EventSenders
             }
         }
 
-        class PriorityDictionaryTests : EventSenderTests
+        class PriorityDictionaryTests : PriorityDictionaryHelper
         {
-            class OrderedSubscriberA : OrderedSubscriber { }
-            class OrderedSubscriberB : OrderedSubscriber { }
-            class OrderedSubscriberC : OrderedSubscriber { }
-
-            public PriorityDictionaryTests()
-            {
-                OrderedSubscriber.Clear();
-            }
-
-            class TestPriorities : PriorityDictionary
-            {
-                public TestPriorities()
-                {
-                    Add<OrderedSubscriberA>(1);
-                    Add<OrderedSubscriberB>(2);
-                    Add<OrderedSubscriberC>(3);
-                }
-            }
-
-            static readonly TestPriorities priorities = new();
-            EventSender<ISomeSubscriber> CreateEvent() => new(priorities);
-
 
             [Test]
             public void CreateEventSender_WithPriorityDictionary()
@@ -378,6 +379,122 @@ namespace Tests.EventSenders
 
                 Assume.That(lowPriority.triggered == false);
                 Assert.True(highPriority.triggered && highPriority2.triggered);
+            }
+        }
+
+        class SubscribeBulk : EventSenderTests
+        {
+            [Test]
+            public void BulkSubscription_EveryoneReceivesEvents()
+            {
+                SomeSubscriber
+                    a = new SomeSubscriber(),
+                    b = new SomeSubscriber();
+
+                Event.Subscribe(a, b);
+
+                SendEvent();
+
+                Assert.True(a.triggered);
+                Assert.True(b.triggered);
+            }
+
+            [Test]
+            public void BulkSubscription_ItemsDefaultTo0Priority()
+            {
+                OrderedSubscriber
+                    a = new OrderedSubscriber(),
+                    b = new OrderedSubscriber(),
+                    c = new OrderedSubscriber();
+
+
+                Event.Subscribe(c, 1);
+                Event.Subscribe(a, b);
+
+                SendEvent();
+
+                Assert.Greater(a.triggeredAt, c.triggeredAt);
+                Assert.Greater(b.triggeredAt, c.triggeredAt);
+            }
+
+            [Test]
+            public void BulkSubscription_GivenPriority_Correct()
+            {
+                OrderedSubscriber
+                    a = new OrderedSubscriber(),
+                    b = new OrderedSubscriber(),
+                    c = new OrderedSubscriber();
+
+
+                Event.Subscribe(c, 1);
+                Event.Subscribe(2, a, b);
+
+                SendEvent();
+
+                Assert.Less(a.triggeredAt, c.triggeredAt);
+                Assert.Less(b.triggeredAt, c.triggeredAt);
+            }
+
+            class SubscribeBulk_PriorityDictionary : PriorityDictionaryHelper
+            {
+
+                [Test]
+                public void SubscribeBulk_ItemInPriorityDictionary_ThrowsException()
+                {
+                    Event = CreateEvent();
+                    OrderedSubscriberA a = new OrderedSubscriberA();
+                    OrderedSubscriberB b = new OrderedSubscriberB();
+                    OrderedSubscriberC c = new OrderedSubscriberC();
+
+                    Assert.Throws<System.ArgumentException>(() =>
+                        Event.Subscribe(a, b, c)
+                    );
+                }
+
+                [Test]
+                public void SubscribeBulk_ByRegistered_ItemInPriorityDictionary()
+                {
+                    Event = CreateEvent();
+                    OrderedSubscriberA a = new OrderedSubscriberA();
+                    OrderedSubscriberB b = new OrderedSubscriberB();
+                    OrderedSubscriberC c = new OrderedSubscriberC();
+
+                    Event.SubscribeByRegisteredType(a, b, c);
+
+                    SendEvent();
+
+                    Assert.AreEqual(2, a.triggeredAt);
+                    Assert.AreEqual(1, b.triggeredAt);
+                    Assert.AreEqual(0, c.triggeredAt);
+                }
+            }
+
+            [Test]
+            public void UnsubscribeBulk_NoEventsReceived()
+            {
+                SomeSubscriber
+                   a = new SomeSubscriber(),
+                   b = new SomeSubscriber();
+
+                Event.Subscribe(a, b);
+
+                Event.Unsubscribe(a, b);
+                SendEvent();
+
+                Assert.False(a.triggered);
+                Assert.False(b.triggered);
+            }
+
+            [Test]
+            public void UnsubscribeBulk_NotSubscribed_throwsException()
+            {
+                SomeSubscriber
+                   a = new SomeSubscriber(),
+                   b = new SomeSubscriber();
+
+                Assert.Throws<System.ArgumentException>(() =>
+                    Event.Unsubscribe(a, b)
+                );
             }
         }
     }

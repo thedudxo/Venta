@@ -14,6 +14,7 @@ namespace DudCo.Events
         readonly PriorityDictionary typePriorities;
 
         EventSendMethod _sendMethod;
+        ISendStratergy<T> sendStratergy;
 
         /// <summary>
         /// what <see cref="Events.EventSendMethod"/> to use. <see cref="Events.EventSendMethod.All"/> by default.
@@ -39,8 +40,6 @@ namespace DudCo.Events
                 }
             }
         } 
-
-        ISendStratergy<T> sendStratergy;
 
         bool sending = false;
 
@@ -97,6 +96,26 @@ namespace DudCo.Events
         }
 
         /// <summary>
+        /// Subscribe multiple items to this event.
+        /// </summary>
+        /// <param name="subscribers">The items to subscribe</param>
+        public void Subscribe(params T[] subscribers)
+        {
+            Subscribe(0, subscribers);
+        }
+
+        /// <summary>
+        /// Subscribe multiple items to this event with priority.
+        /// </summary>
+        /// <param name="priority">The priority each item should have</param>
+        /// <param name="subscribers">The items to subscribe</param>
+        public void Subscribe(int priority, params T[] subscribers)
+        {
+            foreach (T subscriber in subscribers)
+                Subscribe(subscriber, priority);
+        }
+
+        /// <summary>
         /// Subscribe an item in the <see cref="PriorityDictionary"/> to the event.
         /// </summary>
         /// <param name="subscriber">The item to subscribe.</param>
@@ -112,10 +131,30 @@ namespace DudCo.Events
         }
 
         /// <summary>
+        /// Subscribe items in the <see cref="PriorityDictionary"/> to the event.
+        /// </summary>
+        /// <param name="subscribers">The items to subscribe.</param>
+        public void SubscribeByRegisteredType(params T[] subscribers)
+        {
+            foreach (T subscriber in subscribers)
+                SubscribeByRegisteredType(subscriber);
+        }
+
+        /// <summary>
         /// Unsubscribe an item from the event.
         /// </summary>
         /// <param name="subscriber">The item to Unsubscribe.</param>
         public void Unsubscribe(T subscriber) => subscriptionQueue.Unsubscribe(subscriber);
+
+        /// <summary>
+        /// Unsubscribe items from the event.
+        /// </summary>
+        /// <param name="subscribers"></param>
+        public void Unsubscribe(params T[] subscribers)
+        {
+            foreach (T subscriber in subscribers)
+                Unsubscribe(subscriber);
+        }
         
         /// <summary>
         /// Unsubscribe everything.
