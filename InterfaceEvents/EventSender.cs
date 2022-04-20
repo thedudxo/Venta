@@ -2,6 +2,7 @@
 
 namespace DudCo.Events
 {
+
     /// <summary>
     /// Prioritised interface events.
     /// Uses subscription queues to avoid modification while sending out events.
@@ -13,8 +14,8 @@ namespace DudCo.Events
         readonly SubscriptionQueue<T> subscriptionQueue;
         readonly PriorityDictionary typePriorities;
 
-        EventSendMethod _sendMethod;
         ISendStratergy<T> sendStratergy;
+        EventSendMethod _sendMethod;
 
         /// <summary>
         /// what <see cref="Events.EventSendMethod"/> to use. <see cref="Events.EventSendMethod.All"/> by default.
@@ -58,6 +59,13 @@ namespace DudCo.Events
             subscriptionQueue = new SubscriptionQueue<T>(subscribers);
             SendMethod = EventSendMethod.All;
         }
+
+        internal EventSender(PriorityDictionary typePriorities, ISendStratergy<T> sendStratergy)
+        {
+            this.sendStratergy = sendStratergy;
+            this.typePriorities = typePriorities;
+            subscriptionQueue = new SubscriptionQueue<T>(subscribers);
+        } 
 
         /// <summary>
         /// Send the event to all subscribers.
