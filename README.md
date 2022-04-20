@@ -44,10 +44,13 @@ public class SomeEventReceiver : INotifyOnSomeEvent
 ```
 
 ### Subscribing with priority
-```
-someEvent.Subscribe(something, 5)
-someEvent.Subscribe(somethingElse, -2)
-```
+`someEvent.Subscribe(something, 5)`
+`someEvent.Subscribe(somethingElse, -2)`
+
+### Subscribing in bulk
+`Event.Subscribe(a, b);`
+`Event.Subscribe(2, c, d, e);`
+`Event.Unsubscribe(a, b, c, d, e);`
 
 ### Type Priority Dictionaries
 Type priority dictionaries let you specify what priority all instances of a type will be given when subscribing via ``eventSender.SubscribeByRegisteredType()``
