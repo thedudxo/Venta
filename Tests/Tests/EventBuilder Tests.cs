@@ -3,18 +3,22 @@ using NUnit.Framework;
 
 namespace Tests.EventBuilders
 {
+    [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
     internal class EventBuilder_Tests
     {
-        EventBuilder<ISomeSubscriber> builder;
-        EventSender<ISomeSubscriber> eventSender;
+        readonly EventBuilder<ISomeSubscriber> builder;
+        EventSender<ISomeSubscriber>? eventSender;
 
-        [SetUp]
-        public void SetUp()
+        public EventBuilder_Tests()
         {
             builder = new EventBuilder<ISomeSubscriber>();
         }
 
-        public void SendEvent() => eventSender.Send((ISomeSubscriber sub) => sub.OnTrigger());
+        public void SendEvent()
+        {
+            _ = eventSender ?? throw new System.NullReferenceException();
+            eventSender.Send((ISomeSubscriber sub) => sub.OnTrigger());
+        }
 
         [Test] 
         public void BuildDefault_CreatesEmptyPriorityDictionary()
