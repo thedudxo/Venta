@@ -5,9 +5,9 @@ namespace DudCo.Events
 {
     class SubscriptionQueue<T>
     {
-        PrioritisedList<T> subscribers;
-        Queue<(T value, int priority)> toSubscribe = new Queue<(T, int)>();
-        Queue<T> toUnsubscribe = new Queue<T>();
+        readonly PrioritisedList<T> subscribers;
+        readonly Queue<(T value, int priority)> toSubscribe = new Queue<(T, int)>();
+        readonly Queue<T> toUnsubscribe = new Queue<T>();
 
         Action<T, int> subscribeAction;
         Action<T> unsubscribeAction;
