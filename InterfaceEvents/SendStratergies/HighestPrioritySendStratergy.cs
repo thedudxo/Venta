@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Linq;
 
 namespace DudCo.Events
 {
-    internal class SendToAllSubscribers<T> : ISendStratergy<T>
+    internal class HighestPrioritySendStratergy<T> : ISendStratergy<T>
     {
         public void SendToSubscribers(Action<T> notify, PrioritisedList<T> subscribers)
         {
-            foreach (var subscriber in subscribers.SelectMany(pair => pair.Value))
-            {
+            foreach(T subscriber in subscribers.GetHighestPriorityItems())
                 notify(subscriber);
-            }
         }
     }
 }

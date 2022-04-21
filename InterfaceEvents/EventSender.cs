@@ -10,11 +10,12 @@ namespace DudCo.Events
     /// <typeparam name="T"></typeparam>
     public class EventSender<T>
     {
-        PrioritisedList<T> subscribers = new PrioritisedList<T>();
+        PrioritisedList<T> subscribers;
         readonly SubscriptionQueue<T> subscriptionQueue;
         readonly PriorityDictionary typePriorities;
 
         ISendStratergy<T> sendStratergy;
+        ISubscribeStratergy<T> subscribeStratergy;
         EventSendMethod _sendMethod;
 
         /// <summary>
@@ -31,11 +32,11 @@ namespace DudCo.Events
                 switch (_sendMethod)
                 {
                     case EventSendMethod.All:
-                        sendStratergy = new SendToAllSubscribers<T>();
+                        sendStratergy = new DefaultSendStratergy<T>();
                         break;
 
                     case EventSendMethod.OnlyHighestPriority:
-                        sendStratergy = new SendToHighestPriorityBracket<T>();
+                        sendStratergy = new HighestPrioritySendStratergy<T>();
                         break;
 
                     default: throw new System.NotImplementedException();
@@ -56,16 +57,18 @@ namespace DudCo.Events
         /// Create an EventSender with a <see cref="PriorityDictionary"/>.
         /// </summary>
         /// <param name="typePriorities"></param>
-        public EventSender(PriorityDictionary typePriorities) 
-            : this(typePriorities, new SendToAllSubscribers<T>())
+        public EventSender(PriorityDictionary typePriorities)
+            : this(typePriorities, null)
         {}
 
-        internal EventSender(PriorityDictionary typePriorities, ISendStratergy<T> sendStratergy)
+        internal EventSender(PriorityDictionary typePriorities, ISendStratergy<T> sendStratergy = null, ISubscribeStratergy<T> subscribeStratergy = null,  PrioritisedList<T> subscribers = null, SubscriptionQueue<T> subscriptionQueue = null)
         {
             this.typePriorities = typePriorities;
-            this.sendStratergy = sendStratergy;
-            subscriptionQueue = new SubscriptionQueue<T>(subscribers);
-        } 
+            this.subscribers = subscribers ?? new PrioritisedList<T>();
+            this.subscriptionQueue = subscriptionQueue ?? new SubscriptionQueue<T>(this.subscribers);
+            this.sendStratergy = sendStratergy ?? new DefaultSendStratergy<T>();
+            this.subscribeStratergy = subscribeStratergy ?? new DefualtSubscribeStratergy<T>(this.subscriptionQueue);
+        }
 
         /// <summary>
         /// Send the event to all subscribers.
@@ -100,7 +103,7 @@ namespace DudCo.Events
             if (typePriorities.ContainsKey(subscriber.GetType()))
                 throw new ArgumentException($"Subscriber type had an entry in the priority dictionary. Use {nameof(SubscribeByRegisteredType)} instead.", nameof(subscriber));
 
-            subscriptionQueue.Subscribe(subscriber, priority);
+            subscribeStratergy.Subscribe(subscriber, priority);
         }
 
         /// <summary>
@@ -135,7 +138,7 @@ namespace DudCo.Events
             if (typePriorities.ContainsKey(subType) == false) 
                 throw new ArgumentException("Was not found in the priority dictionary", nameof(subscriber));
 
-            subscriptionQueue.Subscribe(subscriber, typePriorities[subType]);
+            subscribeStratergy.Subscribe(subscriber, typePriorities[subType]);
         }
 
         /// <summary>
@@ -167,6 +170,6 @@ namespace DudCo.Events
         /// <summary>
         /// Unsubscribe everything.
         /// </summary>
-        public void Clear() => subscribers = new PrioritisedList<T>();
+        public void Clear() => subscribers.Clear();
     }
 }

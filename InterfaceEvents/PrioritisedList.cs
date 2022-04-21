@@ -82,6 +82,12 @@ namespace DudCo.Events
         {
             return GetEnumerator();
         }
+
+        public void Clear()
+        {
+            ItemsByPriority.Clear();
+            PriorityByItem.Clear();
+        }
     }
 
 }

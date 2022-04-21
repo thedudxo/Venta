@@ -7,7 +7,10 @@
     public class EventBuilder<T>
     {
         ISendStratergy<T> sendStratergy;
+        ISubscribeStratergy<T> subscribeStratergy;
         PriorityDictionary priorityDictionary;
+        SubscriptionQueue<T> subscriptionQueue;
+        PrioritisedList<T> subscribers;
 
         /// <summary>
         /// Create defualt builder
@@ -22,8 +25,10 @@
         /// </summary>
         public void Clear()
         {
-            sendStratergy = new SendToAllSubscribers<T>();
+            sendStratergy = new DefaultSendStratergy<T>();
             priorityDictionary = new EmptyPriorityDictionary();
+            subscribers = new PrioritisedList<T>();
+            subscriptionQueue = new SubscriptionQueue<T>(subscribers);
         }
 
         /// <summary>
@@ -32,7 +37,7 @@
         /// <returns>new <see cref="EventSender{T}"/> with previously specified settings</returns>
         public EventSender<T> Build()
         {
-            return new EventSender<T>(priorityDictionary, sendStratergy);
+            return new EventSender<T>(priorityDictionary, sendStratergy, subscribeStratergy, subscribers, subscriptionQueue);
         }
 
         /// <summary>
@@ -52,7 +57,24 @@
         /// <returns></returns>
         public EventBuilder<T> SendOnlyHighestPriority()
         {
-            sendStratergy = new SendToHighestPriorityBracket<T>();
+            sendStratergy = new HighestPrioritySendStratergy<T>();
+            return this;
+        }
+
+        /// <summary>
+        /// Allow the event to be sent only one time. 
+        /// late subscriptions after the event has sent will "bounce back" and receive the event immediately.
+        /// Usefull for delaying the creation of objects untill their dependancies have been created.
+        /// </summary>
+        /// <returns></returns>
+        public EventBuilder<T> SendOnlyOnce()
+        {
+            var onlyOnceSendStratergy = new OnlyOnceSendStratergy<T>();
+
+            var defualtSubscribe = new DefualtSubscribeStratergy<T>(subscriptionQueue);
+            subscribeStratergy = new SendOnceSubscribeStratergy<T>(defualtSubscribe, onlyOnceSendStratergy);
+            sendStratergy = onlyOnceSendStratergy;
+
             return this;
         }
 
