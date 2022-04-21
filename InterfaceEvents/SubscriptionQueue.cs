@@ -23,17 +23,19 @@ namespace DudCo.Events
 
         public void ExecuteDelayedSubscriptionRequests()
         {
+            UnDelaySubscriptions();
+
             foreach ((T value, int priority) in toSubscribe)
-                AddNow(value, priority);
+                Subscribe(value, priority);
 
             foreach (T sub in toUnsubscribe)
-                RemoveNow(sub);
+                Unsubscribe(sub);
 
             toSubscribe.Clear();
             toUnsubscribe.Clear();
         }
 
-        public void UnDelaySubscriptions()
+        void UnDelaySubscriptions()
         {
             subscribeAction = AddNow;
             unsubscribeAction = RemoveNow;
@@ -45,28 +47,39 @@ namespace DudCo.Events
             unsubscribeAction = RemoveAfter;
         }
 
-        public void Subscribe(T subscriber, int priority) => subscribeAction(subscriber, priority);
-        public void Unsubscribe(T subscriber) => unsubscribeAction(subscriber);
-
-        void AddNow(T subscriber, int priority)
+        public void Subscribe(T subscriber, int priority)
         {
             if (subscribers.Contains(subscriber))
                 throw new ArgumentException($"Cannot subscribe '{subscriber}'. was allready subscribed.");
 
+            subscribeAction(subscriber, priority);
+        }
+        public void Unsubscribe(T subscriber)
+        {
+            if (subscribers.Contains(subscriber) == false)
+                throw new ArgumentException($"Cannot unsubscribe '{subscriber}'. was not subscribed.");
+
+            unsubscribeAction(subscriber);
+        }
+
+        void AddNow(T subscriber, int priority)
+        {
             subscribers.Add(subscriber, priority);
         }
 
         void RemoveNow(T subscriber)
         {
-            if (subscribers.Contains(subscriber) == false)
-                throw new ArgumentException($"Cannot unsubscribe '{subscriber}'. was not subscribed.");
-
             subscribers.Remove(subscriber);
         }
 
         void AddAfter(T subscriber, int priority)
-            => toSubscribe.Enqueue((subscriber, priority));
+        {
+            toSubscribe.Enqueue((subscriber, priority));
+        }
+
         void RemoveAfter(T subscriber)
-            => toUnsubscribe.Enqueue(subscriber);
+        {
+            toUnsubscribe.Enqueue(subscriber);
+        }
     }
 }

@@ -86,7 +86,6 @@ namespace DudCo.Events
 
             sendStratergy.SendToSubscribers(notify, subscribers);
 
-            subscriptionQueue.UnDelaySubscriptions();
             subscriptionQueue.ExecuteDelayedSubscriptionRequests();
 
             sending = false;
