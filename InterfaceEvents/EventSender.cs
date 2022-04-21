@@ -126,6 +126,21 @@ namespace DudCo.Events
         }
 
         /// <summary>
+        /// Subscribe an item only if it isn't allready subscribed.
+        /// </summary>
+        /// <param name="subscriber"></param>
+        /// <param name="priority"></param>
+        /// <returns>True if sucsessfull, false if allready subscribed.</returns>
+        public bool TrySubscribe(T subscriber, int priority = 0)
+        {
+            if (subscribers.Contains(subscriber)) 
+                return false;
+
+            Subscribe(subscriber, priority);
+            return true;
+        }
+
+        /// <summary>
         /// Subscribe an item in the <see cref="PriorityDictionary"/> to the event.
         /// </summary>
         /// <param name="subscriber">The item to subscribe.</param>
@@ -164,6 +179,20 @@ namespace DudCo.Events
         {
             foreach (T subscriber in subscribers)
                 Unsubscribe(subscriber);
+        }
+
+        /// <summary>
+        /// Unsubscribe only if the item is actually subscribed.
+        /// </summary>
+        /// <param name="subscriber"></param>
+        /// <returns>True if sucsessfull, false if the item was not subscribed.</returns>
+        public bool TryUnsubscribe(T subscriber)
+        {
+            if (subscribers.Contains(subscriber) == false)
+                return false;
+
+            Unsubscribe(subscriber);
+            return true;
         }
         
         /// <summary>
