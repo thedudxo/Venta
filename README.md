@@ -55,6 +55,8 @@ class EventsExample
 }
 ```
 
+Items can only be subscribed to an event once, and you'll get a `System.ArgumentException` if you try to subscribe multiple times.
+
 <hr>
 
 ### Subscribing with priority
@@ -74,6 +76,14 @@ when bulk subscribing, the priority must be specified first:
 also works with unsubscribing:
 
 `Event.Unsubscribe(a, b, c, d, e);`
+
+<hr>
+
+### TrySubscribe 
+If the item you're trying to subscribe might allready be subscribed, you can use `TrySubscribe()` and `TryUnsubscribe()` methods. 
+They will not throw exceptions, but instead return a sucsess/failure bool.
+
+Dont use it everywhere, only if you need to, as it will hide bugs (by not throwing).
 
 <hr>
 
