@@ -10,11 +10,18 @@ namespace Tests
     class A { }
     class B
     {
+        public EventSender<IOnRunB> onRunB = new eventSender<IOnRunB>();
+
         public B(A a)
         {
         }
+
+        public void Run(){
+            onRunB.Send(s => s.onRunB());
+        }
     }
 
+    interface IOnRunB { void onRunB();}
     interface IOnCreateA { void OnCreateA(A a); }
     interface IOnCreateB { void OnCreateB(B b); }
 
@@ -26,10 +33,11 @@ namespace Tests
         {
             this.events = events;
         }
-        public void Create()
+        public A Create()
         {
             A a = new A();
             events.OnCreateA.Send(s => s.OnCreateA(a));
+            return a;
         }
     }
 
@@ -42,10 +50,11 @@ namespace Tests
             this.events = events;
         }
 
-        public void Create(A a)
+        public B Create(A a)
         {
             B b = new(a);
             events.OnCreateB.Send(s => s.OnCreateB(b));
+            return b;
         }
     }
 
@@ -62,28 +71,28 @@ namespace Tests
             aFactory = new(this);
             bFactory = new(this);
 
-            aFactory.Create();
+            A a = aFactory.Create();
+            events.bFactory.Create(a);
         }
 
 
     }
     //Venter
-    class ChainEventConsumer : IOnCreateA, IOnCreateB  
+    class ChainEventConsumer : IOnCreateB, IOnRunB
     {
         ChainEventOwner events = new();
 
         ChainEventConsumer()
         {
-            events.OnCreateA.Subscribe(this);
             events.OnCreateB.Subscribe(this);
         }
 
-        public void OnCreateA(A a)
+        public void OnCreateB(B b)
         {
-            events.bFactory.Create(a);
+            b.onRunB.Subscribe(this);
         }
 
-        public void OnCreateB(B b)
+        public void OnRunB()
         {
             //do stuff with b
         }
