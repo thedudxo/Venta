@@ -83,9 +83,9 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void Unsubscribe_DuringEvent()
+            public void Unsubscribe_DuringEvent_NotTriggeredNextTime()
             {
-                UnSubscribeDuringEvent sub = new UnSubscribeDuringEvent(Event);
+                UnSubscribeDuringEvent sub = new(Event);
                 Event.Subscribe(sub);
 
                 SendEvent();
@@ -96,10 +96,10 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void SubscribeDuringEvent_TriggersNewSub()
+            public void SubscribeDuringEvent_TriggersNewSubNextTime()
             {
-                SomeSubscriber createdSub = new SomeSubscriber();
-                SubscribeDuringEvent subCreator = new SubscribeDuringEvent(Event, createdSub);
+                SomeSubscriber createdSub = new();
+                SubscribeDuringEvent subCreator = new(Event, createdSub);
                 Event.Subscribe(subCreator);
 
                 SendEvent();
@@ -109,10 +109,10 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void SubscribeDuringEvent_DoesntTriggerEarly()
+            public void SubscribeDuringEvent_DoesntTriggerThisTime()
             {
-                SomeSubscriber createdSub = new SomeSubscriber();
-                SubscribeDuringEvent subCreator = new SubscribeDuringEvent(Event, createdSub);
+                SomeSubscriber createdSub = new();
+                SubscribeDuringEvent subCreator = new(Event, createdSub);
                 Event.Subscribe(subCreator);
 
                 SendEvent();
@@ -123,9 +123,9 @@ namespace Tests.EventSenders
             [Test]
             public void AllreadySubscribedDuringEvent_ThrowsArgumentException()
             {
-                SomeSubscriber createdSub = new SomeSubscriber();
-                SubscribeDuringEvent subCreator = new SubscribeDuringEvent(Event, createdSub);
-                SubscribeDuringEvent subCreator2 = new SubscribeDuringEvent(Event, createdSub);
+                SomeSubscriber createdSub = new();
+                SubscribeDuringEvent subCreator = new(Event, createdSub);
+                SubscribeDuringEvent subCreator2 = new(Event, createdSub);
                 Event.Subscribe(subCreator);
                 Event.Subscribe(subCreator2);
 
@@ -138,7 +138,7 @@ namespace Tests.EventSenders
             [Test]
             public void AllreadyUnSubscribedDuringEvent_ThrowsArgumentException()
             {
-                var unSub = new UnSubscribeTwiceDuringEvent(Event);
+                UnSubscribeTwiceDuringEvent unSub = new(Event);
 
                 Event.Subscribe(unSub);
 
@@ -151,7 +151,6 @@ namespace Tests.EventSenders
 
         class Clear : EventSenderTests
         {
-
             [Test]
             public void Clear_SubscriberIsntTriggered()
             {
@@ -164,8 +163,8 @@ namespace Tests.EventSenders
             [Test]
             public void Clear_NewSubscriberDuringEvent_IsntTriggered()
             {
-                SomeSubscriber createdSub = new SomeSubscriber();
-                SubscribeDuringEvent subcreator = new SubscribeDuringEvent(Event, createdSub);
+                SomeSubscriber createdSub = new();
+                SubscribeDuringEvent subcreator = new(Event, createdSub);
                 Event.Subscribe(subcreator);
 
                 SendEvent();
@@ -185,9 +184,9 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void Subscribe_WithPriority()
+            public void Subscribe_WithPriority_Triggered()
             {
-                SomeSubscriber subscriber = new SomeSubscriber();
+                SomeSubscriber subscriber = new();
                 Event.Subscribe(subscriber, 0);
 
                 SendEvent();
@@ -196,11 +195,11 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void HigherPriority_CalledFirst()
+            public void MultipleSubscribers_HigherPriority_TriggeredFirst()
             {
                 OrderedSubscriber
-                    sub = new OrderedSubscriber(),
-                    prioritySub = new OrderedSubscriber();
+                    sub = new(),
+                    prioritySub = new();
 
                 Event.Subscribe(sub, 0);
                 Event.Subscribe(prioritySub, 1);
@@ -215,9 +214,9 @@ namespace Tests.EventSenders
             public void AllItemsInOnePriorty_CalledBeforeNextPrioritiy()
             {
                 OrderedSubscriber
-                    highSub1 = new OrderedSubscriber(),
-                    highSub2 = new OrderedSubscriber(),
-                    lowSub = new OrderedSubscriber();
+                    highSub1 = new(),
+                    highSub2 = new(),
+                    lowSub = new();
 
                 Event.Subscribe(highSub1, 1);
                 Event.Subscribe(highSub2, 1);
@@ -229,11 +228,11 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void NegativePriority_IsLowerThan_PositivePriority()
+            public void NegativePriority_IsTriggeredAfter_PositivePriority()
             {
                 OrderedSubscriber
-                    highSub = new OrderedSubscriber(),
-                    lowSub = new OrderedSubscriber();
+                    highSub = new(),
+                    lowSub = new();
 
                 Event.Subscribe(lowSub, -1);
                 Event.Subscribe(highSub, 1);
@@ -247,9 +246,9 @@ namespace Tests.EventSenders
         class RecursiveSend : EventSenderTests
         {
             [Test]
-            public void SendingEvent_FromSubscriber_ThrowsException()
+            public void SendingEvent_FromSubscriberOfThatEvent_ThrowsException()
             {
-                SubscriberThatSendsEvent evilSub = new SubscriberThatSendsEvent(Event);
+                SubscriberThatSendsEvent evilSub = new(Event);
 
                 Event.Subscribe(evilSub);
 
@@ -275,11 +274,9 @@ namespace Tests.EventSenders
 
                 OrderedSubscriberA subA = new();
 
-                Assert.Throws<System.ArgumentException>
-                (() =>
-                    Event.Subscribe(subA)
-                );
+                void act() => Event.Subscribe(subA);
 
+                Assert.Throws<System.ArgumentException>(act);
             }
 
             [Test]
@@ -296,7 +293,6 @@ namespace Tests.EventSenders
                 SendEvent();
 
                 Assert.AreEqual(1, subA.triggeredAt);
-
             }
 
             [Test]
@@ -304,24 +300,21 @@ namespace Tests.EventSenders
             {
                 Event = CreateEvent();
 
-                Assert.Throws<System.ArgumentException>
-                (() =>
-                    Event.SubscribeByRegisteredType(subscriber)
-                );
+                void act() => Event.SubscribeByRegisteredType(subscriber);
+
+                Assert.Throws<System.ArgumentException>(act);
             }
 
             [Test]
             public void SubscribeByRegisteredType_ThrowsException_IfAllreadySubscribed()
             {
                 Event = CreateEvent();
-
                 OrderedSubscriberA subA = new();
                 Event.SubscribeByRegisteredType(subA);
 
-                Assert.Throws<System.ArgumentException>
-                (() =>
-                    Event.SubscribeByRegisteredType(subA)
-                );
+                void act() => Event.SubscribeByRegisteredType(subA);
+
+                Assert.Throws<System.ArgumentException>(act);
             }
         }
 
@@ -392,8 +385,8 @@ namespace Tests.EventSenders
             public void BulkSubscription_EveryoneReceivesEvents()
             {
                 SomeSubscriber
-                    a = new SomeSubscriber(),
-                    b = new SomeSubscriber();
+                    a = new(),
+                    b = new();
 
                 Event.Subscribe(a, b);
 
@@ -407,9 +400,9 @@ namespace Tests.EventSenders
             public void BulkSubscription_ItemsDefaultTo0Priority()
             {
                 OrderedSubscriber
-                    a = new OrderedSubscriber(),
-                    b = new OrderedSubscriber(),
-                    c = new OrderedSubscriber();
+                    a = new(),
+                    b = new(),
+                    c = new();
 
 
                 Event.Subscribe(c, 1);
@@ -425,9 +418,9 @@ namespace Tests.EventSenders
             public void BulkSubscription_GivenPriority_Correct()
             {
                 OrderedSubscriber
-                    a = new OrderedSubscriber(),
-                    b = new OrderedSubscriber(),
-                    c = new OrderedSubscriber();
+                    a = new(),
+                    b = new(),
+                    c = new();
 
 
                 Event.Subscribe(c, 1);
@@ -446,9 +439,9 @@ namespace Tests.EventSenders
                 public void SubscribeBulk_ItemInPriorityDictionary_ThrowsException()
                 {
                     Event = CreateEvent();
-                    OrderedSubscriberA a = new OrderedSubscriberA();
-                    OrderedSubscriberB b = new OrderedSubscriberB();
-                    OrderedSubscriberC c = new OrderedSubscriberC();
+                    OrderedSubscriberA a = new();
+                    OrderedSubscriberB b = new();
+                    OrderedSubscriberC c = new();
 
                     Assert.Throws<System.ArgumentException>(() =>
                         Event.Subscribe(a, b, c)
@@ -459,9 +452,9 @@ namespace Tests.EventSenders
                 public void SubscribeBulk_ByRegistered_ItemInPriorityDictionary()
                 {
                     Event = CreateEvent();
-                    OrderedSubscriberA a = new OrderedSubscriberA();
-                    OrderedSubscriberB b = new OrderedSubscriberB();
-                    OrderedSubscriberC c = new OrderedSubscriberC();
+                    OrderedSubscriberA a = new();
+                    OrderedSubscriberB b = new();
+                    OrderedSubscriberC c = new();
 
                     Event.SubscribeByRegisteredType(a, b, c);
 
@@ -477,8 +470,8 @@ namespace Tests.EventSenders
             public void UnsubscribeBulk_NoEventsReceived()
             {
                 SomeSubscriber
-                   a = new SomeSubscriber(),
-                   b = new SomeSubscriber();
+                   a = new(),
+                   b = new();
 
                 Event.Subscribe(a, b);
 
@@ -493,8 +486,8 @@ namespace Tests.EventSenders
             public void UnsubscribeBulk_NotSubscribed_throwsException()
             {
                 SomeSubscriber
-                   a = new SomeSubscriber(),
-                   b = new SomeSubscriber();
+                   a = new(),
+                   b = new();
 
                 Assert.Throws<System.ArgumentException>(() =>
                     Event.Unsubscribe(a, b)
@@ -504,7 +497,6 @@ namespace Tests.EventSenders
 
         class SendOnlyOnce : PriorityDictionaryHelper
         {
-
             static EventSender<ISomeSubscriber> BuildEventSender()
             {
                 return new EventBuilder<ISomeSubscriber>()
