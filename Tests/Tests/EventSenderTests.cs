@@ -49,7 +49,7 @@ namespace Tests.EventSenders
         {
 
             [Test]
-            public void SubscriberGetsNotified()
+            public void Subscribed_item_is_notified()
             {
                 SendEvent();
 
@@ -57,13 +57,24 @@ namespace Tests.EventSenders
             }
 
             [Test]
-            public void Unsubscribe_Doesnt_GetNotified()
+            public void Item_that_unsubscribed_isnt_notified()
             {
                 Event.Unsubscribe(subscriber);
 
                 SendEvent();
 
                 Assert.False(subscriber.triggered);
+            }
+
+            [Test]
+            public void Item_that_is_not_subscriberd_isnt_notified()
+            {
+                //this tests the mock moreso than the libary
+                SomeSubscriber notSubscribed = new();
+
+                SendEvent();
+
+                Assert.False(notSubscribed.triggered);
             }
 
             [Test]
