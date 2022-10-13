@@ -2,7 +2,6 @@
 
 namespace DudCo.Events
 {
-
     /// <summary>
     /// Prioritised Events.
     /// Uses subscription queues to avoid modification while sending out events.
@@ -46,7 +45,7 @@ namespace DudCo.Events
         /// Send the event to all subscribers.
         /// </summary>
         /// <param name="notify">Delegate used to send the event.</param>
-        /// <exception cref="InvalidOperationException"></exception>
+        /// <exception cref="ConcurrentSendException"></exception>
         public void Send(Action<T> notify)
         {
             if (sending) throw new ConcurrentSendException();
