@@ -18,7 +18,7 @@
 ### Cons
 - Not core to c#
 - Sending an event has slighty weird syntax:
-    - ```myEvent.Send((IOnMyEvent subscriber) => subscriber.OnMyEvent());```
+    - ```myEvent.Send(s => s.OnMyEvent());```
     - This is to allow any method signature to be used for receving the event.
 
 
@@ -50,7 +50,7 @@ class EventsExample
          EventSender<IOnEvent> someEvent = new EventSender<IOnEvent>();
          EventReceiver receiver = new EventReceiver()
          someEvent.Subscribe(reveiver);
-         someEvent.Send((IOnEvent subscriber) => subscriber.OnEvent());
+         someEvent.Send(s => s.OnEvent());
     }
 }
 ```
@@ -96,8 +96,7 @@ public interface IOnCollision
 
 private void SendCollisionEvent(CollisionInfo info)
 {
-    void action(IOnCollision subscriber) => subscriber.OnCollision(info);
-    collisionEvent.Send(action);
+    collisionEvent.Send(s => s.OnCollision(info));
 }
 ```
 
