@@ -2,12 +2,13 @@
 
 namespace DudCo.Events
 {
+
     /// <summary>
     /// Prioritised Events.
     /// Uses subscription queues to avoid modification while sending out events.
     /// </summary>
     /// <typeparam name="T"></typeparam>
-    public class EventSender<T>
+    public sealed class EventSender<T>
     {
         readonly PrioritisedList<T> subscribers;
         readonly SubscriptionQueue<T> subscriptionQueue;
@@ -48,9 +49,8 @@ namespace DudCo.Events
         /// <exception cref="InvalidOperationException"></exception>
         public void Send(Action<T> notify)
         {
-            if (sending) throw new InvalidOperationException("Recursive event sending is not supported");
-            //this is beacuse un/subscribing during an event won't happen untill the recursion ends
-            //this will also catch async race conditions
+            if (sending) throw new ConcurrentSendException();
+            //un/subscribing during an event won't happen untill recursion ends
 
             sending = true;
 

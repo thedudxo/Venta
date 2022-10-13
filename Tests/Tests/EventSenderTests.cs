@@ -263,7 +263,7 @@ namespace Tests.EventSenders
 
                 Event.Subscribe(evilSub);
 
-                Assert.Throws<System.InvalidOperationException>(
+                Assert.Throws<ConcurrentSendException>(
                     () => SendEvent()
                     );
             }
