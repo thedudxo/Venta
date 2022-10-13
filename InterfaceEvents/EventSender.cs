@@ -2,47 +2,18 @@
 
 namespace DudCo.Events
 {
-
     /// <summary>
-    /// Prioritised interface events.
+    /// Prioritised Events.
     /// Uses subscription queues to avoid modification while sending out events.
     /// </summary>
     /// <typeparam name="T"></typeparam>
     public class EventSender<T>
     {
-        PrioritisedList<T> subscribers;
+        readonly PrioritisedList<T> subscribers;
         readonly SubscriptionQueue<T> subscriptionQueue;
         readonly PriorityDictionary typePriorities;
-
-        ISendStratergy<T> sendStratergy;
-        ISubscribeStratergy<T> subscribeStratergy;
-        EventSendMethod _sendMethod;
-
-        /// <summary>
-        /// what <see cref="Events.EventSendMethod"/> to use. <see cref="Events.EventSendMethod.All"/> by default.
-        /// </summary>
-        [System.Obsolete("Create with EventBuilder instead")]
-        public EventSendMethod SendMethod
-        {
-            get => _sendMethod;
-            set
-            {
-                _sendMethod = value;
-
-                switch (_sendMethod)
-                {
-                    case EventSendMethod.All:
-                        sendStratergy = new DefaultSendStratergy<T>();
-                        break;
-
-                    case EventSendMethod.OnlyHighestPriority:
-                        sendStratergy = new HighestPrioritySendStratergy<T>();
-                        break;
-
-                    default: throw new System.NotImplementedException();
-                }
-            }
-        } 
+        readonly ISendStratergy<T> sendStratergy;
+        readonly ISubscribeStratergy<T> subscribeStratergy;
 
         bool sending = false;
 
@@ -79,6 +50,7 @@ namespace DudCo.Events
         {
             if (sending) throw new InvalidOperationException("Recursive event sending is not supported");
             //this is beacuse un/subscribing during an event won't happen untill the recursion ends
+            //this will also catch async race conditions
 
             sending = true;
 
