@@ -50,6 +50,7 @@ namespace DudCo.Events
         {
             if (sending) throw new ConcurrentSendException();
             //un/subscribing during an event won't happen untill recursion ends
+            //this also catches multithreadding
 
             sending = true;
 
@@ -78,6 +79,17 @@ namespace DudCo.Events
                 throw new ArgumentException($"Subscriber type had an entry in the priority dictionary. Use {nameof(SubscribeByRegisteredType)} instead.", nameof(subscriber));
 
             subscribeStratergy.Subscribe(subscriber, priority);
+        }
+
+        /// <summary>
+        /// Subscribe an item to this event.
+        /// </summary>
+        /// <param name="subscriber">The item to subscribe.</param>
+        /// <param name="priority">Priority the item should have. defaults to 0.</param>
+        /// <exception cref="ArgumentException"></exception>
+        public void Subscribe(int priority, T subscriber)
+        {
+            Subscribe(subscriber, priority);
         }
 
         /// <summary>

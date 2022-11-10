@@ -203,6 +203,17 @@ public class EventSenderTests
             SendEvent();
 
             Assert.True(subscriber.triggered);
+        }        
+        
+        [Test]
+        public void Subscribe_With_Priority_Overloaded_Triggered()
+        {
+            SomeSubscriber subscriber = new();
+            Event.Subscribe(0, subscriber);
+
+            SendEvent();
+
+            Assert.True(subscriber.triggered);
         }
 
         [Test]
