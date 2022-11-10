@@ -55,11 +55,15 @@ namespace DudCo.Events
 
             subscriptionQueue.DelaySubscriptions();
 
-            sendStratergy.SendToSubscribers(notify, subscribers);
-
-            subscriptionQueue.ExecuteDelayedSubscriptionRequests();
-
-            sending = false;
+            try //exception might be thrown by a subscriber
+            {
+                sendStratergy.SendToSubscribers(notify, subscribers);
+            }
+            finally
+            {
+                sending = false;
+                subscriptionQueue.ExecuteDelayedSubscriptionRequests();
+            }
         }
 
         /// <summary>
