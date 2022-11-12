@@ -1,5 +1,5 @@
-Documentation here:
-https://thedudxo.github.io/InterfaceEvents/index.html
+Documentation: https://thedudxo.github.io/InterfaceEvents/index.html
+Nuget: https://www.nuget.org/packages/InterfaceEvents
 
 # Features
 - Items with a higher priority are called first. negative priorities are fine.
