@@ -52,6 +52,9 @@
     <Preliminary>False</Preliminary>
     <SdkLinkTarget>Blank</SdkLinkTarget>
     <WarnOnMissingSourceContext>False</WarnOnMissingSourceContext>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="(global)" isDocumented="False" xmlns="">Core namespace for generic events.</NamespaceSummaryItem>
+<NamespaceSummaryItem name="DudCo.Events" isDocumented="True" xmlns="" /></NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

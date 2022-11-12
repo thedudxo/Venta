@@ -13,7 +13,7 @@
         PrioritisedList<T> subscribers;
 
         /// <summary>
-        /// Create defualt builder
+        /// Create default builder
         /// </summary>
         public EventBuilder()
         {
@@ -21,7 +21,7 @@
         }
 
         /// <summary>
-        /// Reset this builder to it's defualt state
+        /// Reset this builder to it's default state
         /// </summary>
         public void Clear()
         {
@@ -32,7 +32,7 @@
         }
 
         /// <summary>
-        /// Get the final product
+        /// Get the finalised <see cref="EventSender{T}"/>
         /// </summary>
         /// <returns>new <see cref="EventSender{T}"/> with previously specified settings</returns>
         public EventSender<T> Build()
@@ -44,7 +44,7 @@
         /// Create <see cref="EventSender{T}"/> with a <see cref="PriorityDictionary"/>
         /// </summary>
         /// <param name="priorityDictionary"></param>
-        /// <returns></returns>
+        /// <returns>this</returns>
         public EventBuilder<T> WithPriorityDictionary(PriorityDictionary priorityDictionary)
         {
             this.priorityDictionary = priorityDictionary;
@@ -54,7 +54,7 @@
         /// <summary>
         /// Notify only the highest priority subscribers. Will notify multiple if they all have the highest priority.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>this</returns>
         public EventBuilder<T> SendOnlyHighestPriority()
         {
             sendStratergy = new HighestPrioritySendStratergy<T>();
@@ -64,9 +64,9 @@
         /// <summary>
         /// Allow the event to be sent only one time. 
         /// late subscriptions after the event has sent will "bounce back" and receive the event immediately.
-        /// Usefull for delaying the creation of objects untill their dependancies have been created.
+        /// Useful for delaying the creation of objects until their dependencies have been created.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>this</returns>
         public EventBuilder<T> SendOnlyOnce()
         {
             var onlyOnceSendStratergy = new OnlyOnceSendStratergy<T>();

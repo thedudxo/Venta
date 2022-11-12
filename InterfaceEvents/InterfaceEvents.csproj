@@ -4,8 +4,23 @@
     <TargetFramework>netstandard2.0</TargetFramework>
 	  <GenerateDocumentationFile>true</GenerateDocumentationFile>
 	  <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+	  <Title></Title>
 	  <Version>2.0.1</Version>
 	  <Company>DudCo</Company>
+	  <Authors>Thedudxo</Authors>
+	  <Description>Generic type events.
+Items with a higher priority are called first. negative priorities are fine.
+Subscribing/Unsubscribing during an event will take effect afterwards.
+Optionally only notify subscribers once. After the initial event, any new subscribers are notified apon subscription.
+Optionally only notify subscribers with the highest priority.
+Optionally Create Priority Dictionaries that determine what order types should receive events in relative to eachother.</Description>
+      <PackageReleaseNotes>Resending an event after a subscriber threw an exception does not cause eventSender to throw a concurrent send exception.
+	  added Subscribe(int priority, T item) overload.</PackageReleaseNotes>
+	  <Copyright>MIT</Copyright>
+	  <PackageLicenseExpression>MIT</PackageLicenseExpression>
+	  <RepositoryType>git</RepositoryType>
+	  <RepositoryUrl>https://github.com/thedudxo/InterfaceEvents</RepositoryUrl>
+      <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
 </Project>

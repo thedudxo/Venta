@@ -3,7 +3,7 @@
 namespace DudCo.Events
 {
     /// <summary>
-    /// Prioritised Events.
+    /// Prioritized Events.
     /// Uses subscription queues to avoid modification while sending out events.
     /// </summary>
     /// <typeparam name="T"></typeparam>
@@ -49,8 +49,8 @@ namespace DudCo.Events
         public void Send(Action<T> notify)
         {
             if (sending) throw new ConcurrentSendException();
-            //un/subscribing during an event won't happen untill recursion ends
-            //this also catches multithreadding
+            //un/subscribing during an event won't happen until recursion ends
+            //this also catches multi threading
 
             sending = true;
 
@@ -113,11 +113,11 @@ namespace DudCo.Events
         }
 
         /// <summary>
-        /// Subscribe an item only if it isn't allready subscribed.
+        /// Subscribe an item only if it isn't already subscribed.
         /// </summary>
-        /// <param name="subscriber"></param>
-        /// <param name="priority"></param>
-        /// <returns>True if sucsessfull, false if allready subscribed.</returns>
+        /// <param name="subscriber">The item to try subscribe</param>
+        /// <param name="priority">Priority the item should have. defaults to 0</param>
+        /// <returns>True if successful, false if already subscribed.</returns>
         public bool TrySubscribe(T subscriber, int priority = 0)
         {
             if (subscribers.Contains(subscriber)) 
@@ -161,7 +161,7 @@ namespace DudCo.Events
         /// <summary>
         /// Unsubscribe items from the event.
         /// </summary>
-        /// <param name="subscribers"></param>
+        /// <param name="subscribers">The items to unsubscribe</param>
         public void Unsubscribe(params T[] subscribers)
         {
             foreach (T subscriber in subscribers)
@@ -171,8 +171,8 @@ namespace DudCo.Events
         /// <summary>
         /// Unsubscribe only if the item is actually subscribed.
         /// </summary>
-        /// <param name="subscriber"></param>
-        /// <returns>True if sucsessfull, false if the item was not subscribed.</returns>
+        /// <param name="subscriber">the item to try unsubscribe</param>
+        /// <returns>True if successful, false if the item was not subscribed.</returns>
         public bool TryUnsubscribe(T subscriber)
         {
             if (subscribers.Contains(subscriber) == false)
