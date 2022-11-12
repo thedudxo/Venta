@@ -1,12 +1,9 @@
-Documentation: https://thedudxo.github.io/InterfaceEvents/index.html
-Nuget: https://www.nuget.org/packages/InterfaceEvents
-
 # Features
-- Items with a higher priority are called first. negative priorities are fine.
-- Subscribing/Unsubscribing during an event will take effect afterwards.
+- Priorites
+- Subscriptions during an event are queued untill it finishes.
 - Optionally only notify subscribers once. After the initial event, any new subscribers are notified apon subscription.
 - Optionally only notify subscribers with the highest priority.
-- Optionally Create Priority Dictionaries that determine what order types should receive events in relative to eachother.
+- Create Priority Dictionaries that determine what order types should receive events in relative to eachother.
 
 # Why interfaces?
 
@@ -24,10 +21,11 @@ Nuget: https://www.nuget.org/packages/InterfaceEvents
     - ```myEvent.Send(s => s.OnMyEvent());```
     - This is to allow any method signature to be used for receving the event.
 
+# Links
+- Documentation: https://thedudxo.github.io/InterfaceEvents/index.html
+- Nuget: https://www.nuget.org/packages/InterfaceEvents
 
-# Examples
-
-## Getting Started
+# Getting Started
 
 ### Creating and subscribing to event
 ```
