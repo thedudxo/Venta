@@ -1,13 +1,12 @@
 ﻿using DudCo.Events;
 using NUnit.Framework;
 
-namespace Tests.Tests.EventSender;
+namespace Tests.EventSenders;
 
-partial class Concurrent_Send_Exception : EventSenderTests
+public class Concurrent_Send_Exception
 {
-
     [Test]
-    public void SendingEvent_FromSubscriberOfThatEvent_ThrowsException()
+    public void Is_thrown_when_a_subscriber_sends_a_event_it_is_subscribed_to()
     {
         EventSender<ISomeSubscriber> eventSender = new();
         SubscriberThatSendsEvent evilSub = new(eventSender);

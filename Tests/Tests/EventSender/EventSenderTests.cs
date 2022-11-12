@@ -1,7 +1,7 @@
 using DudCo.Events;
 using NUnit.Framework;
 
-namespace Tests.Tests.EventSender;
+namespace Tests.EventSenders;
 
 [FixtureLifeCycle(LifeCycle.InstancePerTestCase)]
 public class EventSenderTests
