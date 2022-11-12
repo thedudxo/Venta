@@ -1,5 +1,5 @@
 Documentation here:
-https://thedudxo.github.io/InterfaceEvents/index
+https://thedudxo.github.io/InterfaceEvents/index.html
 
 # Features
 - Items with a higher priority are called first. negative priorities are fine.
