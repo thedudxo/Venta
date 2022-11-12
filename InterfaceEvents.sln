@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InterfaceEvents", "Interfac
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{699D9B82-D85E-4D31-96B2-028A83D53DF5}"
 EndProject
+Project("{7CF6DF6D-3B04-46F8-A40B-537D21BCA0B4}") = "Documentation", "Documentation\Documentation.shfbproj", "{FB2BEEAE-F552-47B3-A599-ACFA637F4715}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -20,6 +22,10 @@ Global
 		{699D9B82-D85E-4D31-96B2-028A83D53DF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{699D9B82-D85E-4D31-96B2-028A83D53DF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{699D9B82-D85E-4D31-96B2-028A83D53DF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2BEEAE-F552-47B3-A599-ACFA637F4715}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB2BEEAE-F552-47B3-A599-ACFA637F4715}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB2BEEAE-F552-47B3-A599-ACFA637F4715}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB2BEEAE-F552-47B3-A599-ACFA637F4715}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
