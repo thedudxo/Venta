@@ -1,3 +1,6 @@
+Documentation here:
+https://thedudxo.github.io/InterfaceEvents/index
+
 # Features
 - Items with a higher priority are called first. negative priorities are fine.
 - Subscribing/Unsubscribing during an event will take effect afterwards.
@@ -22,7 +25,7 @@
     - This is to allow any method signature to be used for receving the event.
 
 
-# Examples / Documentation
+# Examples
 
 ## Getting Started
 
