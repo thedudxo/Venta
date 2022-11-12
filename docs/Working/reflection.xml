@@ -1,0 +1,1895 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<reflection>
+  <assemblies>
+    <assembly name="InterfaceEvents">
+      <assemblydata version="2.0.1.0" culture="" key="" hash="SHA1" />
+      <attributes>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyFileVersionAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>2.0.1.0</value>
+          </argument>
+        </attribute>
+        <attribute>
+          <type api="T:System.Reflection.AssemblyInformationalVersionAttribute" ref="true" />
+          <argument>
+            <type api="T:System.String" ref="true" />
+            <value>2.0.1</value>
+          </argument>
+        </attribute>
+      </attributes>
+    </assembly>
+  </assemblies>
+  <apis>
+    <api id="N:DudCo.Events">
+      <topicdata group="api" />
+      <apidata name="DudCo.Events" group="namespace" />
+      <elements>
+        <element api="T:DudCo.Events.ConcurrentSendException" />
+        <element api="T:DudCo.Events.EventBuilder`1" />
+        <element api="T:DudCo.Events.EventSender`1" />
+        <element api="T:DudCo.Events.PriorityDictionary" />
+      </elements>
+      <file name="fec47808-8d7e-c042-789c-dee3e838d98d" />
+    </api>
+    <api id="T:DudCo.Events.ConcurrentSendException">
+      <topicdata group="api" />
+      <apidata name="ConcurrentSendException" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Exception" ref="true" />
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:System.Exception.GetBaseException">
+          <apidata name="GetBaseException" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Exception" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Exception.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+          <apidata name="GetObjectData" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="info">
+              <type api="T:System.Runtime.Serialization.SerializationInfo" ref="true" />
+            </parameter>
+            <parameter name="context">
+              <type api="T:System.Runtime.Serialization.StreamingContext" ref="false" />
+            </parameter>
+          </parameters>
+          <implements>
+            <member api="M:System.Runtime.Serialization.ISerializable.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+              <type api="T:System.Runtime.Serialization.ISerializable" ref="true" />
+            </member>
+          </implements>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Exception.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Exception.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <overrides>
+            <member api="M:System.Object.ToString">
+              <type api="T:System.Object" ref="true" />
+            </member>
+          </overrides>
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.Data">
+          <apidata name="Data" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" />
+          <getter name="get_Data" />
+          <returns>
+            <type api="T:System.Collections.IDictionary" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.HelpLink">
+          <apidata name="HelpLink" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" set="true" />
+          <getter name="get_HelpLink" />
+          <setter name="set_HelpLink" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.HResult">
+          <apidata name="HResult" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <propertydata get="true" set="true" set-visibility="family" />
+          <getter name="get_HResult" />
+          <setter name="set_HResult" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.InnerException">
+          <apidata name="InnerException" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <propertydata get="true" />
+          <getter name="get_InnerException" />
+          <returns>
+            <type api="T:System.Exception" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.Message">
+          <apidata name="Message" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" />
+          <getter name="get_Message" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.Source">
+          <apidata name="Source" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" set="true" />
+          <getter name="get_Source" />
+          <setter name="set_Source" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.StackTrace">
+          <apidata name="StackTrace" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" />
+          <getter name="get_StackTrace" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.TargetSite">
+          <apidata name="TargetSite" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <propertydata get="true" />
+          <getter name="get_TargetSite" />
+          <returns>
+            <type api="T:System.Reflection.MethodBase" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+      </containers>
+      <file name="c86898ea-9b47-948b-4f88-cf9e92e4a10e" />
+    </api>
+    <api id="Methods.T:DudCo.Events.ConcurrentSendException">
+      <topicdata name="ConcurrentSendException" group="list" subgroup="Methods" typeTopicId="T:DudCo.Events.ConcurrentSendException" />
+      <apidata name="ConcurrentSendException" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="M:System.Exception.GetBaseException">
+          <apidata name="GetBaseException" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Exception" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Exception.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+          <apidata name="GetObjectData" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="info">
+              <type api="T:System.Runtime.Serialization.SerializationInfo" ref="true" />
+            </parameter>
+            <parameter name="context">
+              <type api="T:System.Runtime.Serialization.StreamingContext" ref="false" />
+            </parameter>
+          </parameters>
+          <implements>
+            <member api="M:System.Runtime.Serialization.ISerializable.GetObjectData(System.Runtime.Serialization.SerializationInfo,System.Runtime.Serialization.StreamingContext)">
+              <type api="T:System.Runtime.Serialization.ISerializable" ref="true" />
+            </member>
+          </implements>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Exception.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Exception.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <overrides>
+            <member api="M:System.Object.ToString">
+              <type api="T:System.Object" ref="true" />
+            </member>
+          </overrides>
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.ConcurrentSendException" />
+      </containers>
+      <file name="16d470bc-236f-c9df-b229-94d09ba67f21" />
+    </api>
+    <api id="Properties.T:DudCo.Events.ConcurrentSendException">
+      <topicdata name="ConcurrentSendException" group="list" subgroup="Properties" typeTopicId="T:DudCo.Events.ConcurrentSendException" />
+      <apidata name="ConcurrentSendException" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" />
+      <elements>
+        <element api="P:System.Exception.Data">
+          <apidata name="Data" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" />
+          <getter name="get_Data" />
+          <returns>
+            <type api="T:System.Collections.IDictionary" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.HelpLink">
+          <apidata name="HelpLink" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" set="true" />
+          <getter name="get_HelpLink" />
+          <setter name="set_HelpLink" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.HResult">
+          <apidata name="HResult" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <propertydata get="true" set="true" set-visibility="family" />
+          <getter name="get_HResult" />
+          <setter name="set_HResult" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.InnerException">
+          <apidata name="InnerException" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <propertydata get="true" />
+          <getter name="get_InnerException" />
+          <returns>
+            <type api="T:System.Exception" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.Message">
+          <apidata name="Message" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" />
+          <getter name="get_Message" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.Source">
+          <apidata name="Source" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" set="true" />
+          <getter name="get_Source" />
+          <setter name="set_Source" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.StackTrace">
+          <apidata name="StackTrace" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <propertydata get="true" />
+          <getter name="get_StackTrace" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+        <element api="P:System.Exception.TargetSite">
+          <apidata name="TargetSite" group="member" subgroup="property" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <propertydata get="true" />
+          <getter name="get_TargetSite" />
+          <returns>
+            <type api="T:System.Reflection.MethodBase" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Exception" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.ConcurrentSendException" />
+      </containers>
+      <file name="1ccffd43-8d86-ad0f-9abf-ce5abc4f3bd7" />
+    </api>
+    <api id="T:DudCo.Events.EventBuilder`1">
+      <topicdata group="api" />
+      <apidata name="EventBuilder" group="type" subgroup="class" />
+      <typedata visibility="public" serializable="false" defaultConstructor="M:DudCo.Events.EventBuilder`1.#ctor" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <templates>
+        <template name="T" />
+      </templates>
+      <elements>
+        <element api="M:DudCo.Events.EventBuilder`1.#ctor" />
+        <element api="M:DudCo.Events.EventBuilder`1.Build" />
+        <element api="M:DudCo.Events.EventBuilder`1.Clear" />
+        <element api="M:DudCo.Events.EventBuilder`1.SendOnlyHighestPriority" />
+        <element api="M:DudCo.Events.EventBuilder`1.SendOnlyOnce" />
+        <element api="M:DudCo.Events.EventBuilder`1.WithPriorityDictionary(DudCo.Events.PriorityDictionary)" />
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.Finalize">
+          <apidata name="Finalize" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="true" />
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.MemberwiseClone">
+          <apidata name="MemberwiseClone" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Object" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+      </containers>
+      <file name="4caecb5e-1547-f747-269c-f2ede2a4bb67" />
+    </api>
+    <api id="Methods.T:DudCo.Events.EventBuilder`1">
+      <topicdata name="EventBuilder" group="list" subgroup="Methods" typeTopicId="T:DudCo.Events.EventBuilder`1" />
+      <apidata name="EventBuilder" group="type" subgroup="class" />
+      <typedata visibility="public" serializable="false" defaultConstructor="M:DudCo.Events.EventBuilder`1.#ctor" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <elements>
+        <element api="M:DudCo.Events.EventBuilder`1.Build" />
+        <element api="M:DudCo.Events.EventBuilder`1.Clear" />
+        <element api="M:DudCo.Events.EventBuilder`1.SendOnlyHighestPriority" />
+        <element api="M:DudCo.Events.EventBuilder`1.SendOnlyOnce" />
+        <element api="M:DudCo.Events.EventBuilder`1.WithPriorityDictionary(DudCo.Events.PriorityDictionary)" />
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.Finalize">
+          <apidata name="Finalize" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="true" />
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.MemberwiseClone">
+          <apidata name="MemberwiseClone" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Object" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventBuilder`1" />
+      </containers>
+      <file name="71313381-1cea-a8b7-4da9-618d101c7c20" />
+    </api>
+    <api id="M:DudCo.Events.EventBuilder`1.#ctor">
+      <topicdata group="api" />
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" />
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true" />
+      </containers>
+      <file name="fc2ad709-c9d8-45ee-c1d1-14d4f758cfad" />
+    </api>
+    <api id="M:DudCo.Events.EventBuilder`1.Build">
+      <topicdata group="api" />
+      <apidata name="Build" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <returns>
+        <type api="T:DudCo.Events.EventSender`1" ref="true">
+          <specialization>
+            <template name="T" index="0" api="T:DudCo.Events.EventBuilder`1" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true" />
+      </containers>
+      <file name="42c950e3-6338-c789-c5cb-69be4cee9866" />
+    </api>
+    <api id="M:DudCo.Events.EventBuilder`1.Clear">
+      <topicdata group="api" />
+      <apidata name="Clear" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true" />
+      </containers>
+      <file name="83108bc4-9315-d45e-742b-195cd3e9d841" />
+    </api>
+    <api id="M:DudCo.Events.EventBuilder`1.SendOnlyHighestPriority">
+      <topicdata group="api" />
+      <apidata name="SendOnlyHighestPriority" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <returns>
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true">
+          <specialization>
+            <template name="T" index="0" api="T:DudCo.Events.EventBuilder`1" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true" />
+      </containers>
+      <file name="3ab157f2-5310-908c-6740-14364eacb175" />
+    </api>
+    <api id="M:DudCo.Events.EventBuilder`1.SendOnlyOnce">
+      <topicdata group="api" />
+      <apidata name="SendOnlyOnce" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <returns>
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true">
+          <specialization>
+            <template name="T" index="0" api="T:DudCo.Events.EventBuilder`1" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true" />
+      </containers>
+      <file name="915acb7f-4c77-be01-d80f-9c55eab4afca" />
+    </api>
+    <api id="M:DudCo.Events.EventBuilder`1.WithPriorityDictionary(DudCo.Events.PriorityDictionary)">
+      <topicdata group="api" />
+      <apidata name="WithPriorityDictionary" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="priorityDictionary">
+          <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true">
+          <specialization>
+            <template name="T" index="0" api="T:DudCo.Events.EventBuilder`1" />
+          </specialization>
+        </type>
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventBuilder`1" ref="true" />
+      </containers>
+      <file name="d61cd350-05d1-b509-01db-a5a2d9b26422" />
+    </api>
+    <api id="T:DudCo.Events.EventSender`1">
+      <topicdata group="api" />
+      <apidata name="EventSender" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" defaultConstructor="M:DudCo.Events.EventSender`1.#ctor" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <templates>
+        <template name="T" />
+      </templates>
+      <elements>
+        <element api="Overload:DudCo.Events.EventSender`1.#ctor">
+          <element api="M:DudCo.Events.EventSender`1.#ctor" />
+          <element api="M:DudCo.Events.EventSender`1.#ctor(DudCo.Events.PriorityDictionary)" />
+        </element>
+        <element api="M:DudCo.Events.EventSender`1.Clear" />
+        <element api="M:DudCo.Events.EventSender`1.Send(System.Action{`0})" />
+        <element api="Overload:DudCo.Events.EventSender`1.Subscribe">
+          <element api="M:DudCo.Events.EventSender`1.Subscribe(`0[])" />
+          <element api="M:DudCo.Events.EventSender`1.Subscribe(`0,System.Int32)" />
+          <element api="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0)" />
+          <element api="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0[])" />
+        </element>
+        <element api="Overload:DudCo.Events.EventSender`1.SubscribeByRegisteredType">
+          <element api="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0)" />
+          <element api="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0[])" />
+        </element>
+        <element api="M:DudCo.Events.EventSender`1.TrySubscribe(`0,System.Int32)" />
+        <element api="M:DudCo.Events.EventSender`1.TryUnsubscribe(`0)" />
+        <element api="Overload:DudCo.Events.EventSender`1.Unsubscribe">
+          <element api="M:DudCo.Events.EventSender`1.Unsubscribe(`0)" />
+          <element api="M:DudCo.Events.EventSender`1.Unsubscribe(`0[])" />
+        </element>
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+      </containers>
+      <file name="9129f57d-f5e3-64ed-9eda-388dd8eda942" />
+    </api>
+    <api id="Methods.T:DudCo.Events.EventSender`1">
+      <topicdata name="EventSender" group="list" subgroup="Methods" typeTopicId="T:DudCo.Events.EventSender`1" />
+      <apidata name="EventSender" group="type" subgroup="class" />
+      <typedata visibility="public" sealed="true" serializable="false" defaultConstructor="M:DudCo.Events.EventSender`1.#ctor" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <elements>
+        <element api="M:DudCo.Events.EventSender`1.Clear" />
+        <element api="M:DudCo.Events.EventSender`1.Send(System.Action{`0})" />
+        <element api="Overload:DudCo.Events.EventSender`1.Subscribe">
+          <element api="M:DudCo.Events.EventSender`1.Subscribe(`0[])" />
+          <element api="M:DudCo.Events.EventSender`1.Subscribe(`0,System.Int32)" />
+          <element api="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0)" />
+          <element api="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0[])" />
+        </element>
+        <element api="Overload:DudCo.Events.EventSender`1.SubscribeByRegisteredType">
+          <element api="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0)" />
+          <element api="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0[])" />
+        </element>
+        <element api="M:DudCo.Events.EventSender`1.TrySubscribe(`0,System.Int32)" />
+        <element api="M:DudCo.Events.EventSender`1.TryUnsubscribe(`0)" />
+        <element api="Overload:DudCo.Events.EventSender`1.Unsubscribe">
+          <element api="M:DudCo.Events.EventSender`1.Unsubscribe(`0)" />
+          <element api="M:DudCo.Events.EventSender`1.Unsubscribe(`0[])" />
+        </element>
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" />
+      </containers>
+      <file name="475238fb-7066-a2d3-e00b-f4bf49e53c1d" />
+    </api>
+    <api id="Overload:DudCo.Events.EventSender`1.#ctor">
+      <topicdata name=".ctor" group="list" subgroup="overload" memberSubgroup="constructor" pseudo="true" />
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <elements>
+        <element api="M:DudCo.Events.EventSender`1.#ctor" />
+        <element api="M:DudCo.Events.EventSender`1.#ctor(DudCo.Events.PriorityDictionary)" />
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="3393380a-aed1-ccc4-6b21-99e468c574e9" />
+    </api>
+    <api id="Overload:DudCo.Events.EventSender`1.Subscribe">
+      <topicdata name="Subscribe" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" />
+      <apidata name="Subscribe" group="member" subgroup="method" />
+      <elements>
+        <element api="M:DudCo.Events.EventSender`1.Subscribe(`0[])" />
+        <element api="M:DudCo.Events.EventSender`1.Subscribe(`0,System.Int32)" />
+        <element api="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0)" />
+        <element api="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0[])" />
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="3c3aa648-bf8d-77e5-3d53-5dee028d11b5" />
+    </api>
+    <api id="Overload:DudCo.Events.EventSender`1.SubscribeByRegisteredType">
+      <topicdata name="SubscribeByRegisteredType" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" />
+      <apidata name="SubscribeByRegisteredType" group="member" subgroup="method" />
+      <elements>
+        <element api="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0)" />
+        <element api="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0[])" />
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="0b539ef5-1144-e47c-ad57-41e608b4769e" />
+    </api>
+    <api id="Overload:DudCo.Events.EventSender`1.Unsubscribe">
+      <topicdata name="Unsubscribe" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" />
+      <apidata name="Unsubscribe" group="member" subgroup="method" />
+      <elements>
+        <element api="M:DudCo.Events.EventSender`1.Unsubscribe(`0)" />
+        <element api="M:DudCo.Events.EventSender`1.Unsubscribe(`0[])" />
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="b91a5dad-fddb-631f-a3c7-bf5633796f24" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.#ctor">
+      <topicdata group="api" />
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" overload="Overload:DudCo.Events.EventSender`1.#ctor" />
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="cbe02d6f-bdc8-b86a-149c-16f475266329" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.#ctor(DudCo.Events.PriorityDictionary)">
+      <topicdata group="api" />
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="public" special="true" overload="Overload:DudCo.Events.EventSender`1.#ctor" />
+      <parameters>
+        <parameter name="typePriorities">
+          <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="937d88a5-79ba-e728-7efe-e68aa8e8505c" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.Clear">
+      <topicdata group="api" />
+      <apidata name="Clear" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="b0420d5a-cbf5-8e40-0443-d1d90438f76d" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.Send(System.Action{`0})">
+      <topicdata group="api" />
+      <apidata name="Send" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="notify">
+          <type api="T:System.Action`1" ref="true">
+            <specialization>
+              <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+            </specialization>
+          </type>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="b1b183ce-0c42-aced-bedf-2bac53e74205" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0)">
+      <topicdata group="api" />
+      <apidata name="Subscribe" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.EventSender`1.Subscribe" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="priority">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+        <parameter name="subscriber">
+          <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="8678348d-0871-4602-8d11-a61f2f9e05a1" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0[])">
+      <topicdata group="api" />
+      <apidata name="Subscribe" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.EventSender`1.Subscribe" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="priority">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+        <parameter name="subscribers" params="true">
+          <arrayOf rank="1">
+            <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+          </arrayOf>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="8e0a7fc6-77eb-b2d2-c16c-8f992cf81688" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.Subscribe(`0,System.Int32)">
+      <topicdata group="api" />
+      <apidata name="Subscribe" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.EventSender`1.Subscribe" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="subscriber">
+          <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+        </parameter>
+        <parameter name="priority" optional="true">
+          <type api="T:System.Int32" ref="false" />
+          <argument>
+            <type api="T:System.Int32" ref="false" />
+            <value>0</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="33491b55-a503-63fb-7b3f-eda6a3268933" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.Subscribe(`0[])">
+      <topicdata group="api" />
+      <apidata name="Subscribe" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.EventSender`1.Subscribe" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="subscribers" params="true">
+          <arrayOf rank="1">
+            <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+          </arrayOf>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="b4cb2367-189f-dba5-2af0-3bbb29348eeb" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0)">
+      <topicdata group="api" />
+      <apidata name="SubscribeByRegisteredType" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.EventSender`1.SubscribeByRegisteredType" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="subscriber">
+          <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="b1d8b2ce-f45d-3928-c226-65cb0e343889" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0[])">
+      <topicdata group="api" />
+      <apidata name="SubscribeByRegisteredType" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.EventSender`1.SubscribeByRegisteredType" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="subscribers" params="true">
+          <arrayOf rank="1">
+            <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+          </arrayOf>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="cf26d3cf-525d-7118-a96a-4a8658709fc3" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.TrySubscribe(`0,System.Int32)">
+      <topicdata group="api" />
+      <apidata name="TrySubscribe" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="subscriber">
+          <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+        </parameter>
+        <parameter name="priority" optional="true">
+          <type api="T:System.Int32" ref="false" />
+          <argument>
+            <type api="T:System.Int32" ref="false" />
+            <value>0</value>
+          </argument>
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="35ed8837-126c-c7f5-6110-a495ec28f3fd" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.TryUnsubscribe(`0)">
+      <topicdata group="api" />
+      <apidata name="TryUnsubscribe" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="subscriber">
+          <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="a1fc452e-e302-0be3-6c34-946502950a3b" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.Unsubscribe(`0)">
+      <topicdata group="api" />
+      <apidata name="Unsubscribe" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.EventSender`1.Unsubscribe" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="subscriber">
+          <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="5fe8cb75-f4c5-8863-e78b-dbf91be2a632" />
+    </api>
+    <api id="M:DudCo.Events.EventSender`1.Unsubscribe(`0[])">
+      <topicdata group="api" />
+      <apidata name="Unsubscribe" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.EventSender`1.Unsubscribe" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="subscribers" params="true">
+          <arrayOf rank="1">
+            <template name="T" index="0" api="T:DudCo.Events.EventSender`1" />
+          </arrayOf>
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.EventSender`1" ref="true" />
+      </containers>
+      <file name="1bb3af05-4447-6506-047e-f8e598875974" />
+    </api>
+    <api id="T:DudCo.Events.PriorityDictionary">
+      <topicdata group="api" />
+      <apidata name="PriorityDictionary" group="type" subgroup="class" />
+      <typedata visibility="public" abstract="true" serializable="false" />
+      <family>
+        <ancestors>
+          <type api="T:System.Object" ref="true" />
+        </ancestors>
+      </family>
+      <elements>
+        <element api="M:DudCo.Events.PriorityDictionary.#ctor" />
+        <element api="Overload:DudCo.Events.PriorityDictionary.Add">
+          <element api="M:DudCo.Events.PriorityDictionary.Add``1(System.Int32)" />
+          <element api="M:DudCo.Events.PriorityDictionary.Add(System.Type,System.Int32)" />
+        </element>
+        <element api="M:DudCo.Events.PriorityDictionary.After``1" />
+        <element api="M:DudCo.Events.PriorityDictionary.Before``1" />
+        <element api="M:DudCo.Events.PriorityDictionary.ContainsKey(System.Type)" />
+        <element api="Overload:DudCo.Events.PriorityDictionary.PriorityOf">
+          <element api="M:DudCo.Events.PriorityDictionary.PriorityOf``1" />
+          <element api="M:DudCo.Events.PriorityDictionary.PriorityOf(System.Type)" />
+        </element>
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.Finalize">
+          <apidata name="Finalize" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="true" />
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.MemberwiseClone">
+          <apidata name="MemberwiseClone" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Object" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="P:DudCo.Events.PriorityDictionary.Item(System.Type)" />
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+      </containers>
+      <file name="074669b8-6414-a883-794d-be90bf1ffb6e" />
+    </api>
+    <api id="Methods.T:DudCo.Events.PriorityDictionary">
+      <topicdata name="PriorityDictionary" group="list" subgroup="Methods" typeTopicId="T:DudCo.Events.PriorityDictionary" />
+      <apidata name="PriorityDictionary" group="type" subgroup="class" />
+      <typedata visibility="public" abstract="true" serializable="false" />
+      <elements>
+        <element api="Overload:DudCo.Events.PriorityDictionary.Add">
+          <element api="M:DudCo.Events.PriorityDictionary.Add``1(System.Int32)" />
+          <element api="M:DudCo.Events.PriorityDictionary.Add(System.Type,System.Int32)" />
+        </element>
+        <element api="M:DudCo.Events.PriorityDictionary.After``1" />
+        <element api="M:DudCo.Events.PriorityDictionary.Before``1" />
+        <element api="M:DudCo.Events.PriorityDictionary.ContainsKey(System.Type)" />
+        <element api="Overload:DudCo.Events.PriorityDictionary.PriorityOf">
+          <element api="M:DudCo.Events.PriorityDictionary.PriorityOf``1" />
+          <element api="M:DudCo.Events.PriorityDictionary.PriorityOf(System.Type)" />
+        </element>
+        <element api="M:System.Object.Equals(System.Object)">
+          <apidata name="Equals" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <parameters>
+            <parameter name="obj">
+              <type api="T:System.Object" ref="true" />
+            </parameter>
+          </parameters>
+          <returns>
+            <type api="T:System.Boolean" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.Finalize">
+          <apidata name="Finalize" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="true" />
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetHashCode">
+          <apidata name="GetHashCode" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.Int32" ref="false" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.GetType">
+          <apidata name="GetType" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Type" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.MemberwiseClone">
+          <apidata name="MemberwiseClone" group="member" subgroup="method" />
+          <memberdata visibility="family" />
+          <proceduredata virtual="false" />
+          <returns>
+            <type api="T:System.Object" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+        <element api="M:System.Object.ToString">
+          <apidata name="ToString" group="member" subgroup="method" />
+          <memberdata visibility="public" />
+          <proceduredata virtual="true" />
+          <returns>
+            <type api="T:System.String" ref="true" />
+          </returns>
+          <containers>
+            <library assembly="netstandard" module="netstandard" kind="DynamicallyLinkedLibrary" />
+            <namespace api="N:System" />
+            <type api="T:System.Object" ref="true" />
+          </containers>
+        </element>
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" />
+      </containers>
+      <file name="524770f4-7ba6-c1d0-9e2d-642d97028a31" />
+    </api>
+    <api id="Properties.T:DudCo.Events.PriorityDictionary">
+      <topicdata name="PriorityDictionary" group="list" subgroup="Properties" typeTopicId="T:DudCo.Events.PriorityDictionary" />
+      <apidata name="PriorityDictionary" group="type" subgroup="class" />
+      <typedata visibility="public" abstract="true" serializable="false" />
+      <elements>
+        <element api="P:DudCo.Events.PriorityDictionary.Item(System.Type)" />
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" />
+      </containers>
+      <file name="9c84e72b-200c-db14-a397-994f268665d5" />
+    </api>
+    <api id="Overload:DudCo.Events.PriorityDictionary.Add">
+      <topicdata name="Add" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" />
+      <apidata name="Add" group="member" subgroup="method" />
+      <elements>
+        <element api="M:DudCo.Events.PriorityDictionary.Add``1(System.Int32)" />
+        <element api="M:DudCo.Events.PriorityDictionary.Add(System.Type,System.Int32)" />
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="53d89ae3-554b-ccae-c5a9-dab9be1c2228" />
+    </api>
+    <api id="Overload:DudCo.Events.PriorityDictionary.PriorityOf">
+      <topicdata name="PriorityOf" group="list" subgroup="overload" memberSubgroup="method" pseudo="true" />
+      <apidata name="PriorityOf" group="member" subgroup="method" />
+      <elements>
+        <element api="M:DudCo.Events.PriorityDictionary.PriorityOf``1" />
+        <element api="M:DudCo.Events.PriorityDictionary.PriorityOf(System.Type)" />
+      </elements>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="c171418b-ae47-8a24-5309-5956dbdb9cfa" />
+    </api>
+    <api id="M:DudCo.Events.PriorityDictionary.#ctor">
+      <topicdata group="api" />
+      <apidata name=".ctor" group="member" subgroup="constructor" />
+      <memberdata visibility="family" special="true" />
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="e9b4b4fb-95b6-9580-9e0f-aee82f01e07e" />
+    </api>
+    <api id="M:DudCo.Events.PriorityDictionary.Add``1(System.Int32)">
+      <topicdata group="api" />
+      <apidata name="Add" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.PriorityDictionary.Add" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <parameters>
+        <parameter name="priority">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="0cd73f51-814e-9969-47ff-0130d7d8dc3c" />
+    </api>
+    <api id="M:DudCo.Events.PriorityDictionary.Add(System.Type,System.Int32)">
+      <topicdata group="api" />
+      <apidata name="Add" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.PriorityDictionary.Add" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="type">
+          <type api="T:System.Type" ref="true" />
+        </parameter>
+        <parameter name="priorty">
+          <type api="T:System.Int32" ref="false" />
+        </parameter>
+      </parameters>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="ebdeed2a-812d-b2ae-3a3b-109e24cff880" />
+    </api>
+    <api id="M:DudCo.Events.PriorityDictionary.After``1">
+      <topicdata group="api" />
+      <apidata name="After" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="8d36afb2-0b97-00db-6ae7-d366a080faf7" />
+    </api>
+    <api id="M:DudCo.Events.PriorityDictionary.Before``1">
+      <topicdata group="api" />
+      <apidata name="Before" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="1fb3f7bc-5afc-da7a-a34d-a6353d7f78e7" />
+    </api>
+    <api id="M:DudCo.Events.PriorityDictionary.ContainsKey(System.Type)">
+      <topicdata group="api" />
+      <apidata name="ContainsKey" group="member" subgroup="method" />
+      <memberdata visibility="public" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="t">
+          <type api="T:System.Type" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Boolean" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="21b7aed1-8223-12f4-0e73-b342eda2254f" />
+    </api>
+    <api id="P:DudCo.Events.PriorityDictionary.Item(System.Type)">
+      <topicdata group="api" />
+      <apidata name="Item" group="member" subgroup="property" />
+      <memberdata visibility="public" default="true" />
+      <proceduredata virtual="false" />
+      <propertydata get="true" />
+      <getter name="get_Item" />
+      <parameters>
+        <parameter name="t">
+          <type api="T:System.Type" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="89f17007-a182-41a9-3268-638420aad226" />
+    </api>
+    <api id="M:DudCo.Events.PriorityDictionary.PriorityOf``1">
+      <topicdata group="api" />
+      <apidata name="PriorityOf" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.PriorityDictionary.PriorityOf" />
+      <proceduredata virtual="false" />
+      <templates>
+        <template name="T" />
+      </templates>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="188a3ce2-6d04-ff15-e59a-4d2b7a377b96" />
+    </api>
+    <api id="M:DudCo.Events.PriorityDictionary.PriorityOf(System.Type)">
+      <topicdata group="api" />
+      <apidata name="PriorityOf" group="member" subgroup="method" />
+      <memberdata visibility="public" overload="Overload:DudCo.Events.PriorityDictionary.PriorityOf" />
+      <proceduredata virtual="false" />
+      <parameters>
+        <parameter name="type">
+          <type api="T:System.Type" ref="true" />
+        </parameter>
+      </parameters>
+      <returns>
+        <type api="T:System.Int32" ref="false" />
+      </returns>
+      <containers>
+        <library assembly="InterfaceEvents" module="InterfaceEvents" kind="DynamicallyLinkedLibrary">
+          <assemblydata version="2.0.1" />
+          <noAptca />
+        </library>
+        <namespace api="N:DudCo.Events" />
+        <type api="T:DudCo.Events.PriorityDictionary" ref="true" />
+      </containers>
+      <file name="713629b6-1d26-9679-aa3b-c4e260efb791" />
+    </api>
+    <api id="R:Project_Documentation">
+      <topicdata group="root" />
+      <elements>
+        <element api="N:DudCo.Events" />
+      </elements>
+      <file name="d75eb659-6335-53f6-af7a-81814a21ab7f" />
+    </api>
+  </apis>
+</reflection>

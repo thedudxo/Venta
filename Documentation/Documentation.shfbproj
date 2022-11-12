@@ -42,7 +42,7 @@
     <DocumentationSources>
       <DocumentationSource sourceFile="..\InterfaceEvents\InterfaceEvents.csproj" xmlns="" />
     </DocumentationSources>
-    <HelpTitle>A Sandcastle Documented Class Library</HelpTitle>
+    <HelpTitle>Generic Events Documentation</HelpTitle>
     <HelpFileVersion>1.0.0.0</HelpFileVersion>
     <NamingMethod>Guid</NamingMethod>
     <ContentPlacement>AboveNamespaces</ContentPlacement>
@@ -55,6 +55,7 @@
     <NamespaceSummaries>
       <NamespaceSummaryItem name="(global)" isDocumented="False" xmlns="">Core namespace for generic events.</NamespaceSummaryItem>
 <NamespaceSummaryItem name="DudCo.Events" isDocumented="True" xmlns="" /></NamespaceSummaries>
+    <CopyrightText>MIT</CopyrightText>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->

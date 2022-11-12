@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<doc>
+  <assembly>
+    <name>InterfaceEvents</name>
+  </assembly>
+  <members>
+    <member name="T:DudCo.Events.ConcurrentSendException">
+      <summary>
+            A request to send an event was made before the previous one finished. this could be due to recursion or multithreadding.
+            </summary>
+    </member>
+    <member name="T:DudCo.Events.EventBuilder`1">
+      <summary>
+            Builder for <see cref="T:DudCo.Events.EventSender`1" /></summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="M:DudCo.Events.EventBuilder`1.#ctor">
+      <summary>
+            Create default builder
+            </summary>
+    </member>
+    <member name="M:DudCo.Events.EventBuilder`1.Clear">
+      <summary>
+            Reset this builder to it's default state
+            </summary>
+    </member>
+    <member name="M:DudCo.Events.EventBuilder`1.Build">
+      <summary>
+            Get the finalised <see cref="T:DudCo.Events.EventSender`1" /></summary>
+      <returns>new <see cref="T:DudCo.Events.EventSender`1" /> with previously specified settings</returns>
+    </member>
+    <member name="M:DudCo.Events.EventBuilder`1.WithPriorityDictionary(DudCo.Events.PriorityDictionary)">
+      <summary>
+            Create <see cref="T:DudCo.Events.EventSender`1" /> with a <see cref="T:DudCo.Events.PriorityDictionary" /></summary>
+      <param name="priorityDictionary">
+      </param>
+      <returns>this</returns>
+    </member>
+    <member name="M:DudCo.Events.EventBuilder`1.SendOnlyHighestPriority">
+      <summary>
+            Notify only the highest priority subscribers. Will notify multiple if they all have the highest priority.
+            </summary>
+      <returns>this</returns>
+    </member>
+    <member name="M:DudCo.Events.EventBuilder`1.SendOnlyOnce">
+      <summary>
+            Allow the event to be sent only one time. 
+            late subscriptions after the event has sent will "bounce back" and receive the event immediately.
+            Useful for delaying the creation of objects until their dependencies have been created.
+            </summary>
+      <returns>this</returns>
+    </member>
+    <member name="T:DudCo.Events.EventSender`1">
+      <summary>
+            Prioritized Events.
+            Uses subscription queues to avoid modification while sending out events.
+            </summary>
+      <typeparam name="T">
+      </typeparam>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.#ctor">
+      <summary>
+            Create an EventSender with an empty <see cref="T:DudCo.Events.PriorityDictionary" />.
+            </summary>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.#ctor(DudCo.Events.PriorityDictionary)">
+      <summary>
+            Create an EventSender with a <see cref="T:DudCo.Events.PriorityDictionary" />.
+            </summary>
+      <param name="typePriorities">
+      </param>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.Send(System.Action{`0})">
+      <summary>
+            Send the event to all subscribers.
+            </summary>
+      <param name="notify">Delegate used to send the event.</param>
+      <exception cref="T:DudCo.Events.ConcurrentSendException">
+      </exception>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.Subscribe(`0,System.Int32)">
+      <summary>
+            Subscribe an item to this event.
+            </summary>
+      <param name="subscriber">The item to subscribe.</param>
+      <param name="priority">Priority the item should have. defaults to 0.</param>
+      <exception cref="T:System.ArgumentException">
+      </exception>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0)">
+      <summary>
+            Subscribe an item to this event.
+            </summary>
+      <param name="subscriber">The item to subscribe.</param>
+      <param name="priority">Priority the item should have. defaults to 0.</param>
+      <exception cref="T:System.ArgumentException">
+      </exception>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.Subscribe(`0[])">
+      <summary>
+            Subscribe multiple items to this event.
+            </summary>
+      <param name="subscribers">The items to subscribe</param>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.Subscribe(System.Int32,`0[])">
+      <summary>
+            Subscribe multiple items to this event with priority.
+            </summary>
+      <param name="priority">The priority each item should have</param>
+      <param name="subscribers">The items to subscribe</param>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.TrySubscribe(`0,System.Int32)">
+      <summary>
+            Subscribe an item only if it isn't already subscribed.
+            </summary>
+      <param name="subscriber">The item to try subscribe</param>
+      <param name="priority">Priority the item should have. defaults to 0</param>
+      <returns>True if successful, false if already subscribed.</returns>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0)">
+      <summary>
+            Subscribe an item in the <see cref="T:DudCo.Events.PriorityDictionary" /> to the event.
+            </summary>
+      <param name="subscriber">The item to subscribe.</param>
+      <exception cref="T:System.ArgumentException">
+      </exception>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.SubscribeByRegisteredType(`0[])">
+      <summary>
+            Subscribe items in the <see cref="T:DudCo.Events.PriorityDictionary" /> to the event.
+            </summary>
+      <param name="subscribers">The items to subscribe.</param>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.Unsubscribe(`0)">
+      <summary>
+            Unsubscribe an item from the event.
+            </summary>
+      <param name="subscriber">The item to Unsubscribe.</param>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.Unsubscribe(`0[])">
+      <summary>
+            Unsubscribe items from the event.
+            </summary>
+      <param name="subscribers">The items to unsubscribe</param>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.TryUnsubscribe(`0)">
+      <summary>
+            Unsubscribe only if the item is actually subscribed.
+            </summary>
+      <param name="subscriber">the item to try unsubscribe</param>
+      <returns>True if successful, false if the item was not subscribed.</returns>
+    </member>
+    <member name="M:DudCo.Events.EventSender`1.Clear">
+      <summary>
+            Unsubscribe everything.
+            </summary>
+    </member>
+    <member name="T:DudCo.Events.PriorityDictionary">
+      <summary>
+            A dictionary of types and the priorities they should have, once subscribed to an EventSender.
+            </summary>
+    </member>
+    <member name="M:DudCo.Events.PriorityDictionary.Add(System.Type,System.Int32)">
+      <summary>
+            Add a type to the dictionary.
+            </summary>
+      <param name="type">The type to add.</param>
+      <param name="priorty">The priority the type should have.</param>
+    </member>
+    <member name="M:DudCo.Events.PriorityDictionary.Add``1(System.Int32)">
+      <summary>
+            Add a type to the dictionary.
+            </summary>
+      <typeparam name="T">The type to add.</typeparam>
+      <param name="priority">The priority the type should have.</param>
+    </member>
+    <member name="M:DudCo.Events.PriorityDictionary.ContainsKey(System.Type)">
+      <summary>
+            Check if the type has an entry in the dictionary.
+            </summary>
+      <param name="t">The type to look for</param>
+      <returns>True if the type is in the dictionary.</returns>
+    </member>
+    <member name="M:DudCo.Events.PriorityDictionary.PriorityOf``1">
+      <summary>
+            Get the priority of a type in the dictionary.
+            </summary>
+      <typeparam name="T">The type to get the priority of</typeparam>
+      <returns>Priority of the given type.</returns>
+    </member>
+    <member name="M:DudCo.Events.PriorityDictionary.PriorityOf(System.Type)">
+      <summary>
+            Get the priority of a type in the dictionary.
+            </summary>
+      <param name="type">The type to get the priority of</param>
+      <returns>Priority of the given type.</returns>
+    </member>
+    <member name="P:DudCo.Events.PriorityDictionary.Item(System.Type)">
+      <summary>
+            Get the priority of a type in the dictionary.
+            </summary>
+      <param name="t">The type to get the priority of</param>
+      <returns>Priority of the given type.</returns>
+    </member>
+    <member name="M:DudCo.Events.PriorityDictionary.After``1">
+      <summary>
+            Get a priority which is lower than a type already in this dictionary.
+            </summary>
+      <typeparam name="T">The type to get a lower priority than</typeparam>
+      <returns>A lower priority than the given item.</returns>
+    </member>
+    <member name="M:DudCo.Events.PriorityDictionary.Before``1">
+      <summary>
+            Get a priority which is higher than a type already in this dictionary.
+            </summary>
+      <typeparam name="T">The type to get a higher priority than</typeparam>
+      <returns>A higher priority than the given item.</returns>
+    </member>
+    <member name="N:DudCo.Events">
+      <summary />
+    </member>
+  </members>
+</doc>
