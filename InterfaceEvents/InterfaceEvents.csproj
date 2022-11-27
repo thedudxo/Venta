@@ -8,7 +8,7 @@
 	  <Version>2.0.1</Version>
 	  <Company>DudCo</Company>
 	  <Authors>Thedudxo</Authors>
-	  <Title>Generic Events</Title>
+	  <Title></Title>
 	  <PackageTags>Events Generic EventDriven Priority Prioritized Registered Interface Delegate Type</PackageTags>
 	  <Description>Generic type events.
 Items with a higher priority are called first. negative priorities are fine.

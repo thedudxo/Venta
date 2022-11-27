@@ -1,13 +1,12 @@
-﻿namespace Tests
+﻿namespace Tests;
+
+public class SomeSubscriber : ISomeSubscriber
 {
-    class SomeSubscriber : ISomeSubscriber
+    public int triggerCount = 0;
+    public bool triggered = false;
+    public void OnTrigger()
     {
-        public int triggerCount = 0;
-        public bool triggered = false;
-        public void OnTrigger()
-        {
-            triggered = true;
-            triggerCount++;
-        }
+        triggered = true;
+        triggerCount++;
     }
 }

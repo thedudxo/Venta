@@ -1,4 +1,3 @@
-﻿namespace Tests
-{
-    interface ISomeSubscriber { void OnTrigger(); }
-}
+﻿namespace Tests;
+
+public interface ISomeSubscriber { void OnTrigger(); }
