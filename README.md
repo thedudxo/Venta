@@ -5,22 +5,6 @@
 - Optionally only notify subscribers with the highest priority.
 - Create Priority Dictionaries that determine what order types should receive events in relative to eachother.
 
-# Why interfaces?
-
-### Pros
-- No unesseceary Sender/Args parameters (though you can add them if needed)
-- more explicit declerations:
-  - It's immedately clear when a class receives events
-  - Guarenteed to use the same method names
-- personally prefer ".Subscribe(x)" to "+="
-- The above features I've been able to add
-
-### Cons
-- Not core to c#
-- Sending an event has slighty weird syntax:
-    - ```myEvent.Send(s => s.OnMyEvent());```
-    - This is to allow any method signature to be used for receving the event.
-
 # Links
 - Documentation: https://thedudxo.github.io/InterfaceEvents/index.html
 - Nuget: https://www.nuget.org/packages/InterfaceEvents
